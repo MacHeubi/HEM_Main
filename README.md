@@ -36,6 +36,19 @@ Push to GitHub to new Branch: 'git push -u origin new_branch_name'
 
 Delete a Branch once merged and not used anymore: 'git branch -d Branch_name'
 
+### Undo stuff
+
+Undo git add: 'git reset [file_name]'
+
+Undo git commit: 'git reset HEAD~1'
+HEAD = pointer to the last commit for Git
+~1 = to un-commit and un-stage (add)
+
+To see what was commited in a reversed chronological way: 'git log'
+Option to go back to a specific stage: git reset [hash of a certain commit out of the log]
+
+To undo the changes in the file: git reset --hard [hash fo a certain commit our of the log]
+
 ## Links
 
 Youtupe video: 'https://www.youtube.com/watch?v=RGOj5yH7evk'
