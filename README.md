@@ -18,3 +18,7 @@ Ein leeres Repository auf GitHub verlinken (link aus GitHub.com holen)
 2nd check if remote Repo is there: 'git remote v-'
 
 Wenn gelinkt: 'git push origin [branch aus GitHub.com / bei mir "main"]'
+
+## Links
+
+Youtupe video: 'https://www.youtube.com/watch?v=RGOj5yH7evk'
