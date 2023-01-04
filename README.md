@@ -29,9 +29,10 @@ Create new Branch: 'git checkout -b branche-name'
 
 Compare two branches: 'git diff branch_name' (against master / main)
 
-Push to GitHub to new Branch: 'git push -u origin new_barnch_name'
+Push to GitHub to new Branch: 'git push -u origin new_branch_name'
 
 -- do the merge on GitHub --
+'git merge Branch_name'
 
 Delete a Branch once merged and not used anymore: 'git branch -d Branch_name'
 
