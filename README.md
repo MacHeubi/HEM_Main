@@ -49,6 +49,8 @@ Option to go back to a specific stage: git reset [hash of a certain commit out o
 
 To undo the changes in the file: git reset --hard [hash fo a certain commit our of the log]
 
+-> leading to HEAD pointing to a new commit!!
+
 ## Links
 
 Youtupe video: 'https://www.youtube.com/watch?v=RGOj5yH7evk'
