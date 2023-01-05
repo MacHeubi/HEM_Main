@@ -1,12 +1,16 @@
 <!doctype html>
 <html lang="de">
     <head>
+        <link rel="stylesheet" href="Mystyle.css">
         <title>
             My First Page
         </title>
+        <style>
+            h4 {font-family:Courier New}
+        </style>
     </head>
     <body>
-        <header>
+        <header class=myclass_pink>
             <h1>
                 Hallo World 
             </h1>
@@ -37,6 +41,27 @@
                 <summary>Zusammenfassung den Details zu mehr Semantik</summary>
                 Hier gibt es weitere details zu Semantik. Es gibt auch header, main, section, nav und footer tags zum gruppieren von Text. Diese haben aber keinen Einfluss auf die Darstellung.
             </details>
+            <h4>
+                Arbeiten mit CSS style
+            </h4>
+            <p style="color:blue;">
+                Hier mit Farbe im Text
+            </p>
+            <p style="background-color:green">
+                Hier mit Hintergrundfarbe
+            </p>
+            <p>
+                Mit angepasster Schrift<a style="font-size:30px;">grösse</a>
+            </p>
+            <p>
+                Mit angepasster <a style="font-family:Courier New;">Schrift</a>
+            </p>
+            <p>
+                Mit angepasster <a style="font-style:italic;font-weight:bold;">Schriftart</a>
+            </p>
+            <p>
+                Styletags sind im Header definiert oder im CSS file. Dabei werden styles in {} pro Tag definiert. Schau dir die Styles im Head an...
+            </p>
             <h4>
                 Das ist eine geordnete Liste
             </h4>
@@ -82,7 +107,7 @@
             <figcaption>This is a figcaption example</figcaption>
             </figure>
             <p>This is a picture with width and height set</p>
-            <img src="/Users/Infonovis2/Documents/Business/Asubium/GitHub/Web/img/as_banner.jpeg" height="50" width="300">
+            <img src="img/as_banner.jpeg" height="50" width="300">
             <p>This is a picture with alternative text set</p>
             <img src="as_banner.jpeg" alt="Logo von der Asubium auf einem Foto von einem Geschäftsgebäude">
         </div>
