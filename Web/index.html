@@ -1,29 +1,92 @@
 <!doctype html>
-<html>
+<html lang="de">
     <head>
         <title>
             My First Page
         </title>
     </head>
     <body>
-        <div>
+        <header>
             <h1>
-                Hallo World
+                Hallo World 
             </h1>
+        </header>
+        <div role="Basis Semantik">
             <p>
                 This is a paragraph
             </p>
             <p>
                 This is a line <br> break with <strong>formating</strong>
             </p>
+            <h4>
+                Semantik im Text
+            </h4>
+            <p>
+                Das ist eine Adresse: <address>Wegackerstrasse 28 8041 Zürich</address>
+            </p>
+            <p>
+                Das ist eine Zeit: <time>11:30 Uhr</time>
+            </p>
+            <p>
+                Das ist eine Abkürzung: <abbr>HTML</abbr>
+            </p>
+            <p>
+                Da ist ein link hinter dem Text: <a href="http://www.asubium.com">Asubium Homepage</a>
+            </p>
+            <details>
+                <summary>Zusammenfassung den Details zu mehr Semantik</summary>
+                Hier gibt es weitere details zu Semantik. Es gibt auch header, main, section, nav und footer tags zum gruppieren von Text. Diese haben aber keinen Einfluss auf die Darstellung.
+            </details>
+            <h4>
+                Das ist eine geordnete Liste
+            </h4>
+            <ol>
+                <li>
+                    Listitem 1
+                </li>
+                <li>
+                    Listitem 2
+                </li>
+                <li>
+                    Listitem 3
+                </li>
+            </ol>
+            <h4>
+                Das ist eine ungeordnete Liste
+            </h4>
+            <ul>
+                <li>
+                    Listitem 1
+                </li>
+                <li>
+                    Listitem 2
+                </li>
+                <li>
+                    Listitem 3
+                </li>
+            </ul>
+            <h4>
+                Standard für gute Lesbarkeit und Hilfen für Vorlesetools
+            </h4>
+            <p>
+                Es git den Standard <abbr>WIA ARIA</abbr>, welcher den Gebrauch vom Attribute role="" mit div's beschreibt (alert, img, banner, contentinfo, comment)
+            </p>
+            <p>
+                Wenn ein Div nicht vorgelesen werden soll: aria-hidden="true"
+            </p>
         </div>
-        <div>
-            <p>This is a picture</p>
-            <img src="/Users/Infonovis2/Documents/Business/Asubium/GitHub/Web/img/as_banner.jpeg">
+        <div role="img">
+            <figure>
+                <p>This is a picture</p>
+                <img src="/Users/Infonovis2/Documents/Business/Asubium/GitHub/Web/img/as_banner.jpeg">
+            <figcaption>This is a figcaption example</figcaption>
+            </figure>
             <p>This is a picture with width and height set</p>
             <img src="/Users/Infonovis2/Documents/Business/Asubium/GitHub/Web/img/as_banner.jpeg" height="50" width="300">
+            <p>This is a picture with alternative text set</p>
+            <img src="as_banner.jpeg" alt="Logo von der Asubium auf einem Foto von einem Geschäftsgebäude">
         </div>
-        <div>
+        <div role="Input Felder">
             <h3>
                 Hier kommen Input Felder
             </h3>
@@ -36,7 +99,7 @@
             E-Mail: <input type="email"><br>
             Phone: <input type="tel"><br>
         </div>
-        <div>
+        <div role="Forms">
             <h3>
                 Hier kommt eine From
             </h3>
@@ -53,5 +116,10 @@
                 </fieldset>
             </form>
         </div>
+        <footer>
+            <h3>
+                This is the footer
+            </h3>
+        </footer>
     </body>
 </html>
