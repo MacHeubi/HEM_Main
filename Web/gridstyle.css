@@ -1,0 +1,38 @@
+.mycontainer_fixedcolumns{
+    display: grid;
+    grid-template-columns: 100px 100px 240px;
+    background-color: cadetblue;
+    border: 1px dashed black;
+}
+.mycontainer_fractional{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 2fr;
+    background-color: cadetblue;
+    border: 1px dashed black;
+}
+.mycontainer_quick{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    background-color: cadetblue;
+    border: 1px dashed black;
+    column-gap: 5px;
+}
+.mycontainer_rows{
+    display: grid;
+    grid-template-rows: 50px 50px 50px 50px;
+    background-color: cadetblue;
+    border: 1px dashed black;
+    row-gap: 5px;
+}
+.mycontainer_grid{
+    display: grid;
+    grid-template: 100px 100px 50px / 1fr 2fr 1fr;
+    background-color: cadetblue;
+    border: 1px dashed black;
+    gap: 4px 10px
+}
+.mygriditem{
+    background-color: darkgray;
+    color: black;
+    text-align: center;
+}
