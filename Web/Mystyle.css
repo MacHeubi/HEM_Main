@@ -1,4 +1,48 @@
 body {background-color: cadetblue;}
 h1 {color:darkgrey}
 h2 {color:gray}
-.myclass_pink {background-color: pink;}
+.myclass_pink {
+    background-color: pink;
+    }
+.myclassgradgreen{
+    background: linear-gradient(90deg, lightgreen, darkgreen) ;
+}
+div {border: solid black 1px;
+    padding: 10px;
+    text-align: left;
+    margin: 5px 10px 5px 10px;
+    border-radius: 10px;
+}
+img {
+    border-radius: 20px 0 20px 0
+}
+.rotate20 {
+    transform: rotate(20deg)
+}
+.blur2 {
+    filter: blur(2px)
+}
+.grayscale50{
+    filter: grayscale(50%)
+}
+.opacity20{
+    filter: opacity(80%)
+}
+.sturate20{
+    filter:saturate(20%)
+}
+.sturate50{
+    filter:saturate(50%)
+}
+.sturate80{
+    filter:saturate(80%)
+}
+.bright20{
+    filter:brightness(20%)
+}
+.bright50{
+    filter:brightness(50%)
+}
+.bright300{
+    filter:brightness(300%)
+}
