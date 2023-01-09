@@ -1,8 +1,9 @@
 body {background-color: cadetblue;}
 h1 {color:darkgrey}
-h2 {color:gray}
+h2,h3,h4,.myclass_pink {color:gray}
 .myclass_pink {
     background-color: pink;
+    width: 20%;
     }
 .myclassgradgreen{
     background: linear-gradient(90deg, lightgreen, darkgreen) ;
@@ -14,35 +15,50 @@ div {border: solid black 1px;
     border-radius: 10px;
 }
 img {
-    border-radius: 20px 0 20px 0
+    border-radius: 20px 0 20px 0;
+}
+.topbanner{
+    position: absolute;
+    top: 0px;
+    z-index:-1;
+    width: 20%;
+}
+.imgfloat{
+    float: right;
+}
+.imgfloatclear{
+    clear: right;
 }
 .rotate20 {
-    transform: rotate(20deg)
+    transform: rotate(20deg);
 }
 .blur2 {
-    filter: blur(2px)
+    filter: blur(2px);
 }
 .grayscale50{
-    filter: grayscale(50%)
+    filter: grayscale(50%);
 }
 .opacity20{
-    filter: opacity(80%)
+    filter: opacity(80%);
+}
+.width30{
+    width: 30%;
 }
 .sturate20{
-    filter:saturate(20%)
+    filter:saturate(20%);
 }
 .sturate50{
-    filter:saturate(50%)
+    filter:saturate(50%);
 }
 .sturate80{
-    filter:saturate(80%)
+    filter:saturate(80%);
 }
 .bright20{
-    filter:brightness(20%)
+    filter:brightness(20%);
 }
 .bright50{
-    filter:brightness(50%)
+    filter:brightness(50%);
 }
 .bright300{
-    filter:brightness(300%)
+    filter:brightness(300%);
 }
