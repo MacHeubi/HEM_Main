@@ -53,6 +53,8 @@
     text-align: center;
 }
 .mygriditem-banner{
+    display: flex;
+    justify-content: flex-end;
     background-color: darkgray;
     color: black;
     text-align: center;
@@ -63,6 +65,13 @@
     text-align: center;
 }
 .mygriditem-supp{
+    background-color: darkgray;
+    color: black;
+    text-align: center;
+}
+.mygriditem-button{
+    display: flex;
+    justify-content: flex-end;
     background-color: darkgray;
     color: black;
     text-align: center;
