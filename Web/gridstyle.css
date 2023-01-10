@@ -36,3 +36,52 @@
     color: black;
     text-align: center;
 }
+.mycontainer-namedarea{
+    display: grid;
+    grid-template-areas:
+        "item-1 item-1 item-1"
+        "item-2 item-3 item-4"
+        "item-2 item-5 item-5"
+        "item-6 item-6 item-6";
+    background-color: cadetblue;
+    border: 1px dashed black;
+    gap: 4px 10px
+}
+.mygriditem-nav{
+    background-color: darkgray;
+    color: black;
+    text-align: center;
+}
+.mygriditem-banner{
+    background-color: darkgray;
+    color: black;
+    text-align: center;
+}
+.mygriditem-nav{
+    background-color: darkgray;
+    color: black;
+    text-align: center;
+}
+.mygriditem-supp{
+    background-color: darkgray;
+    color: black;
+    text-align: center;
+}
+.item-1{
+    grid-area: item-1;
+}
+.item-2{
+    grid-area: item-2;
+}
+.item-3{
+    grid-area: item-3;
+}
+.item-4{
+    grid-area: item-4;
+}
+.item-5{
+    grid-area: item-5;
+}
+.item-6{
+    grid-area: item-6;
+}
