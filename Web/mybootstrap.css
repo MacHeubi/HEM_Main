@@ -1,0 +1,9 @@
+.row,
+.col,
+.col-7,
+.col-3 {
+    border: 1px solid #FFFFFF;
+    padding: 2px;
+    color: #FFFFFF;
+    background-color: #1E96FF;
+}
