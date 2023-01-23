@@ -1,0 +1,10 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>    
+<snippets>
+   <group category="MyStuff" language="PLSQL">
+      <snippet name="Test" description="">
+         <code>
+            <![CDATA[test123]]>
+         </code>
+      </snippet>
+   </group>
+</snippets>
