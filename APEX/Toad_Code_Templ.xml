@@ -1,0 +1,580 @@
+<TEMPLATES>
+   <TEMPLATE name="anon" advanced="false">
+      <DESCRIPTION>Anonymous block</DESCRIPTION>
+      <CODE><![CDATA[DECLARE
+                  dummy NUMBER;
+                  BEGIN
+   SELECT count(*) INTO dummy FROM dual;
+   |;
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+      NULL;
+   WHEN OTHERS THEN
+      NULL;
+END;]]>  
+      </CODE>
+   </TEMPLATE>
+   <TEMPLATE name="assertloc" advanced="false">
+      <DESCRIPTION>Local Assertion Procedure with supporting DBMS_OUTPUT substitute</DESCRIPTION>
+      <CODE><![CDATA[DECLARE
+   assertion_failure EXCEPTION;
+   PROCEDURE pl (
+      str         IN   VARCHAR2,
+      len         IN   INTEGER := 80,
+      expand_in   IN   BOOLEAN := TRUE
+   )
+   IS 
+      v_len   PLS_INTEGER     := LEAST (len, 255);
+      v_str   VARCHAR2 (2000);
+   BEGIN
+      IF LENGTH (str) > v_len
+      THEN
+         v_str := SUBSTR (str, 1, v_len);
+         DBMS_OUTPUT.put_line (v_str);
+         pl (SUBSTR (str, len   + 1), v_len,expand_in);
+      ELSE
+         v_str := str;
+         DBMS_OUTPUT.put_line (v_str);
+      END IF;
+   EXCEPTION
+      WHEN OTHERS
+      THEN
+         IF expand_in
+         THEN
+            DBMS_OUTPUT.ENABLE (1000000);
+            DBMS_OUTPUT.put_line (v_str);
+         ELSE
+            RAISE;
+         END IF;
+   END;
+   
+   PROCEDURE assert (
+      condition_in   IN   BOOLEAN,
+      msg_in         IN   VARCHAR2 := NULL
+   )
+   IS
+   BEGIN
+      IF    NOT condition_in
+         OR condition_in IS NULL
+      THEN
+         IF msg_in IS NOT NULL
+         THEN
+            pl (msg_in);
+            pl (DBMS_UTILITY.format_call_stack);
+         END IF;
+
+         RAISE assertion_failure;
+      END IF;
+   END;
+BEGIN
+   -- Sample usage
+   assert ( | my_parameter_in IS NOT NULL,
+      'Value cannot be NULL');
+EXCEPTION
+   WHEN assertion_failure  
+   THEN
+      -- Decide if you want to handle this locally or not.    
+END;]]>
+      </CODE>
+   </TEMPLATE>
+   <TEMPLATE name="autonproc" advanced="false">
+      <DESCRIPTION>Autonomous transaction PROCEDURE shell</DESCRIPTION>
+      <CODE><![CDATA[PROCEDURE | ()
+IS
+   -- Available in Oracle8i and above
+   PRAGMA AUTONOMOUS_TRANSACTION;
+BEGIN
+   -- Upon successful completion, save all changes.
+   COMMIT;
+EXCEPTION
+   -- For each error handler, don't forget the rollback!
+   WHEN OTHERS 
+   THEN
+      ROLLBACK;   
+END;]]>
+      </CODE>
+   </TEMPLATE>
+   <TEMPLATE name="bcquery" advanced="false">
+      <DESCRIPTION>BULK COLLECT Query</DESCRIPTION>
+      <CODE><![CDATA[DECLARE
+   l_array1 <array_type_declaration>;
+   l_array2 <array_type_declaration>;
+BEGIN
+   -- Fetch into individual collections, one for each
+   -- element in the SELECT list.
+   SELECT |
+      BULK COLLECT INTO l_array1, l_array2
+      FROM 
+     WHERE ;
+END;]]>
+      </CODE>
+      </TEMPLATE>
+      <TEMPLATE name="case" advanced="false"><DESCRIPTION>CASE statment</DESCRIPTION><CODE><![CDATA[case |
+   WHEN condition THEN
+
+   WHEN condition THEN
+
+   ELSE
+
+END CASE;]]></CODE></TEMPLATE><TEMPLATE name="crbl" advanced="false"><DESCRIPTION>Entire cursor block</DESCRIPTION><CODE><![CDATA[DECLARE
+   CURSOR &&c1 IS
+      SELECT | FROM   WHERE;
+   c1rec &&c1%ROWTYPE;
+BEGIN
+   OPEN &&c1;
+   LOOP
+      FETCH &&c1 INTO c1rec;
+      EXIT WHEN &&c1%NOTFOUND;
+   END LOOP;
+   CLOSE &&c1;
+END;]]></CODE></TEMPLATE><TEMPLATE name="crbo" advanced="false"><DESCRIPTION>Package body cursor</DESCRIPTION><CODE><![CDATA[/* declare package body */
+CURSOR c1 RETURN |tablename%ROWTYPE IS
+   SELECT ....;]]></CODE></TEMPLATE><TEMPLATE name="crloop" advanced="false"><DESCRIPTION>Cursor LOOP</DESCRIPTION><CODE><![CDATA[OPEN &&c1;
+LOOP
+   FETCH &&c1.| INTO  ;
+   EXIT WHEN &&c1%NOTFOUND;
+END LOOP;
+CLOSE &&c1;]]></CODE></TEMPLATE><TEMPLATE name="crsp" advanced="false"><DESCRIPTION>Package spec cursor</DESCRIPTION><CODE><![CDATA[/* declare package cursor specification */
+CURSOR c1 RETURN |tablename%ROWTYPE;]]></CODE></TEMPLATE><TEMPLATE name="crt" advanced="false"><DESCRIPTION>CREATE TABLE AS Query</DESCRIPTION><CODE><![CDATA[CREATE TABLE | AS (
+)]]></CODE></TEMPLATE><TEMPLATE name="cur" advanced="false"><DESCRIPTION>CURSOR declaration</DESCRIPTION><CODE><![CDATA[CURSOR c1 IS
+   SELECT | FROM table_name WHERE column_name = value;]]></CODE></TEMPLATE><TEMPLATE name="curfor" advanced="false"><DESCRIPTION>CURSOR FOR-LOOP</DESCRIPTION><CODE><![CDATA[FOR c1_rec IN &&c1 LOOP
+   |;
+END LOOP;]]></CODE></TEMPLATE><TEMPLATE name="curpar" advanced="false"><DESCRIPTION>CURSOR with Parameter declaration</DESCRIPTION><CODE><![CDATA[CURSOR c2 (xxx NUMBER) IS
+   SELECT | FROM table_name WHERE column_name = xxx;]]></CODE></TEMPLATE><TEMPLATE name="curpfor" advanced="false"><DESCRIPTION>CURSOR with Parameter FOR-LOOP</DESCRIPTION><CODE><![CDATA[FOR c2_rec IN c2 (yyy) LOOP
+   |;
+END LOOP;]]></CODE></TEMPLATE><TEMPLATE name="dolocal" advanced="false"><DESCRIPTION>Local DBMS_OUTPUT Substitute</DESCRIPTION><CODE><![CDATA[DECLARE
+
+   -- Will wrap arbitrarily long strings, and automatically expand  
+   -- the DBMS_OUTPUT buffer.
+   PROCEDURE pl (
+      str         IN   VARCHAR2,
+      len         IN   INTEGER := 80,
+      expand_in   IN   BOOLEAN := TRUE
+   )
+   IS 
+      v_len   PLS_INTEGER     := LEAST (len, 255);
+      v_str   VARCHAR2 (2000);
+   BEGIN
+      IF LENGTH (str) > v_len
+      THEN
+         v_str := SUBSTR (str, 1, v_len);
+         DBMS_OUTPUT.put_line (v_str);
+         pl (SUBSTR (str, len   + 1), v_len,expand_in);
+      ELSE
+         v_str := str;
+         DBMS_OUTPUT.put_line (v_str);
+      END IF;
+   EXCEPTION
+      WHEN OTHERS
+      THEN
+         IF expand_in
+         THEN
+            DBMS_OUTPUT.ENABLE (1000000);
+            DBMS_OUTPUT.put_line (v_str);
+         ELSE
+            RAISE;
+         END IF;
+   END;
+BEGIN
+   |
+END;]]></CODE></TEMPLATE><TEMPLATE name="fadel" advanced="false"><DESCRIPTION>FORALL Delete</DESCRIPTION><CODE><![CDATA[DECLARE
+   l_array  <array_type_declaration>;
+BEGIN
+   FORALL indx IN l_array.FIRST .. l_array.LAST
+      DELETE FROM |
+       WHERE column = l_array (indx);
+END;]]></CODE></TEMPLATE><TEMPLATE name="faexc" advanced="false"><DESCRIPTION>FORALL with SAVE EXCEPTIONS error handling</DESCRIPTION><CODE><![CDATA[DECLARE -- Oracle9i and above!
+  l_array   <array_type_declaration>;
+  bulk_errors EXCEPTION;
+   PRAGMA EXCEPTION_INIT ( bulk_errors, -24381 );
+BEGIN    
+   FORALL indx IN l_array.FIRST .. l_array.LAST
+      SAVE EXCEPTIONS
+      /*DML statement of choice*/
+      |;
+EXCEPTION
+   WHEN bulk_errors 
+   THEN 
+      FOR indx IN 1 .. SQL%BULK_EXCEPTIONS.COUNT
+      LOOP
+         DBMS_OUTPUT.PUT_LINE (
+            'Error ' || indx || ' occurred during ' ||
+
+            'iteration ' || SQL%BULK_EXCEPTIONS(indx).ERROR_INDEX ||
+            ' updating name to ' ||
+
+                 enames_with_errors(SQL%BULK_EXCEPTIONS(indx).ERROR_INDEX));
+         DBMS_OUTPUT.PUT_LINE (
+            'Oracle error is ' ||
+            SQLERRM(-1 * SQL%BULK_EXCEPTIONS(indx).ERROR_CODE));
+      END LOOP;   
+END;
+/]]></CODE></TEMPLATE><TEMPLATE name="fains" advanced="false"><DESCRIPTION>FORALL Insert</DESCRIPTION><CODE><![CDATA[DECLARE
+   l_array1     <array_type_declaration>;
+   l_array2     <array_type_declaration>;
+   l_array3     <array_type_declaration>;
+BEGIN
+   FORALL indx IN l_array1.FIRST .. l_array1.LAST
+      INSERT INTO |
+         ( column list )
+         VALUES
+         (l_array2 (indx), l_array3 (indx) ...);
+END;]]></CODE></TEMPLATE><TEMPLATE name="faupd" advanced="false"><DESCRIPTION>FORALL Update</DESCRIPTION><CODE><![CDATA[DECLARE
+   l_array1 <array_type_declaration>;
+   l_array2 <array_type_declaration>;
+BEGIN
+   FORALL indx IN l_array1.FIRST .. l_array1.LAST
+      UPDATE |
+         SET column = l_array2 (indx)
+       WHERE column = l_array1 (indx);
+END;]]></CODE></TEMPLATE><TEMPLATE name="for" advanced="false"><DESCRIPTION>FOR-LOOP statement</DESCRIPTION><CODE><![CDATA[FOR | IN 1 .. 10 LOOP
+
+END LOOP;]]></CODE></TEMPLATE><TEMPLATE name="forwo" advanced="false"><DESCRIPTION>Nested FOR-LOOPs with EXIT-WHEN outer</DESCRIPTION><CODE><![CDATA[<<outer>>
+FOR i IN 1 .. 10 LOOP
+
+   FOR j IN 1 .. 10 LOOP
+
+      EXIT outer WHEN |;
+   END LOOP;
+END LOOP outer;]]></CODE></TEMPLATE><TEMPLATE name="func" advanced="false"><DESCRIPTION>FUNCTION shell</DESCRIPTION><CODE><![CDATA[FUNCTION | () RETURN &&returntype
+IS
+  xxx &&returntype;
+BEGIN
+
+   RETURN xxx;
+END;]]></CODE></TEMPLATE><TEMPLATE name="getline" advanced="false"><DESCRIPTION>Local substitute for UTL_FILE.GET_LINE</DESCRIPTION><CODE><![CDATA[DECLARE
+   -- Trap NO_DATA_FOUND and return EOF flag.
+   file_id UTL_FILE.FILE_TYPE;
+   line VARCHAR2(32767);
+   eof BOOLEAN;
+
+   PROCEDURE get_nextline 
+     (file_in IN UTL_FILE.FILE_TYPE, 
+      line_out OUT VARCHAR2, 
+      eof_out OUT BOOLEAN)
+   IS
+   BEGIN
+      UTL_FILE.GET_LINE (file_in, line_out);
+      eof_out := FALSE;
+   EXCEPTION
+      WHEN NO_DATA_FOUND
+      THEN
+        line_out := NULL;
+        eof_out  := TRUE;
+   END;
+BEGIN /* main */
+   file_id := UTL_FILE.FOPEN (
+      <location>, <filename>, max_linesize => 32767);
+      
+   LOOP
+      get_nextline (file_id, line, eof);
+      EXIT WHEN eof;
+      /*process line*/
+      |
+   END LOOP;
+   
+   UTL_FILE.FCLOSE (file_id);
+END;   ]]></CODE></TEMPLATE><TEMPLATE name="goto" advanced="false"><DESCRIPTION>GOTO statment</DESCRIPTION><CODE><![CDATA[<<code_label>>
+|;
+goto code_label;]]></CODE></TEMPLATE><TEMPLATE name="ift" advanced="false"><DESCRIPTION>IF-THEN statement</DESCRIPTION><CODE><![CDATA[IF | THEN
+
+END IF;]]></CODE></TEMPLATE><TEMPLATE name="ifte" advanced="false"><DESCRIPTION>IF-THEN-ELSE statement</DESCRIPTION><CODE><![CDATA[IF | THEN
+
+ELSE
+
+END IF;]]></CODE></TEMPLATE><TEMPLATE name="iftei" advanced="false"><DESCRIPTION>IF-THEN-ELSIF statement</DESCRIPTION><CODE><![CDATA[IF | THEN
+
+ELSIF condition THEN
+
+ELSE
+
+END IF;]]></CODE></TEMPLATE><TEMPLATE name="invproc" advanced="false"><DESCRIPTION>Invoker Rights PROCEDURE shell</DESCRIPTION><CODE><![CDATA[PROCEDURE | ()
+  AUTHID CURRENT_USER
+IS
+BEGIN
+
+END;]]></CODE></TEMPLATE><TEMPLATE name="lp" advanced="false"><DESCRIPTION>LOOP statement</DESCRIPTION><CODE><![CDATA[LOOP
+   |;
+END LOOP;]]></CODE></TEMPLATE><TEMPLATE name="lpew" advanced="false"><DESCRIPTION>LOOP with EXIT-WHEN statement</DESCRIPTION><CODE><![CDATA[LOOP
+   EXIT WHEN |;
+END LOOP;]]></CODE></TEMPLATE><TEMPLATE name="lpex" advanced="false"><DESCRIPTION>LOOP with EXIT statement</DESCRIPTION><CODE><![CDATA[LOOP
+   IF | THEN
+      EXIT;
+   END IF;
+END LOOP;]]></CODE></TEMPLATE><TEMPLATE name="mta" advanced="false"><DESCRIPTION>MODIFY TABLE ADD</DESCRIPTION><CODE><![CDATA[MODIFY TABLE | ADD (
+)]]></CODE></TEMPLATE><TEMPLATE name="ndsmrq" advanced="false"><DESCRIPTION>NDS multiple row query</DESCRIPTION><CODE><![CDATA[DECLARE
+   l_var VARCHAR2(32767);
+   TYPE refcur_t IS REF CURSOR;
+   l_cursor refcur_t;
+   l_record table%ROWTYPE; -- MODIFY TO MATCH SELECT
+BEGIN
+   OPEN l_cursor FOR 'SELECT | ';
+   LOOP
+      FETCH l_cursor INTO l_record;
+      EXIT WHEN l_cursor%NOTFOUND;
+   END LOOP;
+   CLOSE l_cursor;
+END;]]></CODE></TEMPLATE><TEMPLATE name="ndsplsql" advanced="false"><DESCRIPTION>NDS dynamic PL/SQL block execution</DESCRIPTION><CODE><![CDATA[DECLARE
+   l_block VARCHAR2(32767) :=
+      '| ';
+BEGIN
+   EXECUTE IMMEDIATE 
+      'BEGIN ' || l_block || 'END;'
+      INTO l_var
+      USING var1 IN, var2 IN OUT, var3 OUT;
+END;]]></CODE></TEMPLATE><TEMPLATE name="ndssrq" advanced="false"><DESCRIPTION>NDS single row query</DESCRIPTION><CODE><![CDATA[DECLARE
+   l_var VARCHAR2(32767);
+BEGIN
+   EXECUTE IMMEDIATE 
+      'SELECT | '
+      INTO l_var
+      USING;
+END;]]></CODE></TEMPLATE><TEMPLATE name="proc" advanced="false"><DESCRIPTION>PROCEDURE shell</DESCRIPTION><CODE><![CDATA[PROCEDURE | ()
+IS
+BEGIN
+
+END;]]></CODE></TEMPLATE><TEMPLATE name="recins" advanced="false"><DESCRIPTION>Record-based Insert</DESCRIPTION><CODE><![CDATA[DECLARE  
+   l_record &&tablename%ROWTYPE;
+BEGIN
+   -- Available in Oracle9i Release 2 and above
+   INSERT INTO &&tablename
+      VALUES l_record;
+   |
+END;]]></CODE></TEMPLATE><TEMPLATE name="record" advanced="false"><DESCRIPTION>Sample record declaration</DESCRIPTION><CODE><![CDATA[TYPE |RecordName IS RECORD (
+  deptno  NUMBER;
+  deptname dept.name%TYPE );
+dept_rec RecordName;]]></CODE></TEMPLATE><TEMPLATE name="recupd" advanced="false"><DESCRIPTION>Record-based Update</DESCRIPTION><CODE><![CDATA[DECLARE  
+   l_record &&tablename%ROWTYPE;
+BEGIN
+   -- Available in Oracle9i Release 2 and above
+   UPDATE &&tablename
+      SET ROW = l_record
+    WHERE |;
+END;]]></CODE></TEMPLATE><TEMPLATE name="ups" advanced="false"><DESCRIPTION>UPDATE with SAVEPOINTS</DESCRIPTION><CODE><![CDATA[BEGIN
+   SAVEPOINT my_point;
+   UPDATE | SET ;
+EXCEPTION
+   WHEN OTHERS THEN
+      ROLLBACK TO my_point;
+END;]]></CODE></TEMPLATE><TEMPLATE name="utlfexc" advanced="false"><DESCRIPTION>UTL_FILE exception handling</DESCRIPTION><CODE><![CDATA[DECLARE
+   fid UTL_FILE.FILE_TYPE;
+
+   PROCEDURE recNgo (str IN VARCHAR2)
+   IS
+   BEGIN
+      DBMS_OUTPUT.PUT_LINE (CONCAT('UTL_FILE error: ', str));
+      UTL_FILE.FCLOSE (fid);
+   END;
+BEGIN
+
+    |
+
+EXCEPTION
+   WHEN UTL_FILE.INVALID_PATH
+    THEN recNgo ('invalid_path'); 
+   WHEN UTL_FILE.INVALID_MODE
+    THEN recNgo ('invalid_mode');
+   WHEN UTL_FILE.INVALID_FILEHANDLE
+    THEN recNgo ('invalid_filehandle');
+   WHEN UTL_FILE.INVALID_OPERATION
+    THEN recNgo ('invalid_operation');
+   WHEN UTL_FILE.READ_ERROR
+    THEN recNgo ('read_error');
+   WHEN UTL_FILE.WRITE_ERROR
+    THEN recNgo ('write_error');
+   WHEN UTL_FILE.INTERNAL_ERROR
+    THEN recNgo ('internal_error');
+   WHEN OTHERS
+    THEN recNgo (SQLERRM);
+END;]]></CODE></TEMPLATE><TEMPLATE name="scc" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select *
+from   k.code_obj_class
+where  id in (|);]]></CODE></TEMPLATE><TEMPLATE name="scci" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select *
+from   k.code_obj_classif
+where  id in (|);]]></CODE></TEMPLATE><TEMPLATE name="sccc" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select *
+from   k.code_obj_class
+where  obj_classif_id in (|);]]></CODE></TEMPLATE><TEMPLATE name="td" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[to_date('|','yyyymmdd')]]></CODE></TEMPLATE><TEMPLATE name="sck" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select *
+from   k.code_obj_key
+where  id in (|);]]></CODE></TEMPLATE><TEMPLATE name="oti" advanced="false"><DESCRIPTION>obj_type_id</DESCRIPTION><CODE><![CDATA[obj_type_id]]></CODE></TEMPLATE><TEMPLATE name="so" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[exec k.session#.open_session;]]></CODE></TEMPLATE><TEMPLATE name="as" advanced="false"><DESCRIPTION>alter session set current_schema = K</DESCRIPTION><CODE><![CDATA[alter session set current_schema = K]]></CODE></TEMPLATE><TEMPLATE name="rn" advanced="false"><DESCRIPTION>rownumber</DESCRIPTION><CODE><![CDATA[row_number() over (partition by i_cont order by o_doc_id ) rnum]]></CODE></TEMPLATE><TEMPLATE name="la" advanced="false"><DESCRIPTION>list_agg</DESCRIPTION><CODE><![CDATA[listagg(col, ',') within group (order by col)]]></CODE></TEMPLATE><TEMPLATE name="sob" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[exec k.session#.open_session(i_bu_id => |);]]></CODE></TEMPLATE><TEMPLATE name="split" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[regexp_substr(i_migrt_key,'[^$]+',1,1)]]></CODE></TEMPLATE><TEMPLATE name="bp" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select *
+from   k.base_par      bp
+join   k.base_par_item bpi on bp.id = bpi.base_par_id
+where  1 = 1
+  and  bp.intl_id  like '%%'
+  and  bpi.intl_id like '%%']]></CODE></TEMPLATE><TEMPLATE name="okvl" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select *
+from   k.obj_rel_key
+where  upper(key_val) like '%|%']]></CODE></TEMPLATE><TEMPLATE name="oni" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select *
+from   k.obj_name_intl
+where  obj_id = |]]></CODE></TEMPLATE><TEMPLATE name="onin" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select *
+from   k.obj_name_intl
+where  lower(name) like '%|%']]></CODE></TEMPLATE><TEMPLATE name="class" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select oc.obj_id, ct.intl_id obj_type, cst.intl_id obj_sub_type
+       ,coci.id classif_id, coci.intl_id classif_intl_id, coci.name  classif_name--, nvl2(coci.method,'+',null) is_calc
+       ,coc.id class_id, coc.intl_id class_intl_id, coc.name  class_name
+       ,oni.name,oo.start_date open_date, oo.close_date
+ from   k.obj_class             oc
+ join   k.code_obj_class        coc   on oc.obj_class_id    = coc.id
+ join   k.code_obj_classif      coci  on oc.obj_classif_id  = coci.id
+ join   k.obj                   oo    on oc.obj_id          = oo.id
+ join   k.code_obj_type         ct    on oo.obj_type_id     = ct.id
+ left join k.code_obj_sub_type  cst   on oo.obj_sub_type_id = cst.id
+ join   k.obj_name_intl    oni   on oc.obj_id         = oni.obj_id
+ where  oc.obj_id        in ( |)
+ order by oc.obj_classif_id, oc.obj_class_id;]]></CODE></TEMPLATE><TEMPLATE name="s" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select *
+from   |]]></CODE></TEMPLATE><TEMPLATE name="col" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select *
+from   all_tab_columns
+where  1 =1 
+  and  owner       = 'K'
+  and  table_name  like '%%'
+  and  table_name  not like '%/_V%' escape '/'
+  and  column_name like '%|%'
+order by column_id]]></CODE></TEMPLATE><TEMPLATE name="tab" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select *
+from   all_tables
+where  1 =1 
+  and  owner       = 'K'
+  and  table_name  like '%|%';]]></CODE></TEMPLATE><TEMPLATE name="bpr" advanced="false"><DESCRIPTION>BP Person Rel</DESCRIPTION><CODE><![CDATA[select bp.name       bp_name
+     , pers.name     person_name
+     , cbprt.name    bp_person_rel_type
+     , car.name      auth_role
+     , rel.*, bpra.*
+from   k.obj_bp_person_rel  rel
+join   k.obj_name_intl bp   on rel.obj_id = bp.obj_id
+join   k.obj_name_intl pers on rel.rel_person_id = pers.obj_id
+join   k.code_bp_person_rel_type cbprt on rel.bp_person_rel_type_id = cbprt.id 
+left join k.obj_bp_pers_rel_auth bpra  on rel.id = bpra.bp_person_rel_id 
+left join k.code_auth_role       car   on bpra.auth_role_id = car.id
+where  rel.obj_id = |]]></CODE></TEMPLATE><TEMPLATE name="cnt" advanced="false"><DESCRIPTION>count(*)</DESCRIPTION><CODE><![CDATA[count(*)]]></CODE></TEMPLATE><TEMPLATE name="oko" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select *
+from   k.obj_rel_key
+where  obj_id in (|)]]></CODE></TEMPLATE><TEMPLATE name="okv" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select *
+from   k.obj_rel_key
+where  upper(key_val) in ('|')]]></CODE></TEMPLATE><TEMPLATE name="inn" advanced="false"><DESCRIPTION>in not null</DESCRIPTION><CODE><![CDATA[is not null]]></CODE></TEMPLATE><TEMPLATE name="log" advanced="false"><DESCRIPTION>log</DESCRIPTION><CODE><![CDATA[select *
+from   k.log
+where timestamp > trunc(sysdate)
+order by timestamp desc]]></CODE></TEMPLATE><TEMPLATE name="logi" advanced="false"><DESCRIPTION>log where id =</DESCRIPTION><CODE><![CDATA[select *
+from   k.log
+where  id in (|)]]></CODE></TEMPLATE><TEMPLATE name="dual" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select |
+from   dual;]]></CODE></TEMPLATE><TEMPLATE name="bgp" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select bgp_id, name, count(*) cnt, count(job) cnt_job
+from   k.obj_bgp_v
+where  valid = '+'
+group  by bgp_id, name
+order  by 1;]]></CODE></TEMPLATE><TEMPLATE name="set" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[set linesize 200
+set echo on
+set serveroutput on
+set time on
+set timing on]]></CODE></TEMPLATE><TEMPLATE name="sc" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select *
+from   k.code_|]]></CODE></TEMPLATE><TEMPLATE name="suffix" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[substr(regexp_substr(i_migrt_key, '\.[^\.]*$'),2)]]></CODE></TEMPLATE><TEMPLATE name="wa" advanced="false"><DESCRIPTION>workflow action</DESCRIPTION><CODE><![CDATA[select *
+from   k.wfc_action wa
+join   k.meta_typ   mt on wa.meta_typ_id = mt.id
+where  1 = 1
+  and  mt.intl_id like 'xfer'
+  and  wa.intl_id like '%cert%'
+--  and  wa.old_wfc_status_id in (0)
+--  and  wa.new_wfc_status_id in (90)]]></CODE></TEMPLATE><TEMPLATE name="gs" advanced="false"><DESCRIPTION>gsearch in src</DESCRIPTION><CODE><![CDATA[select /* + parallel(8) */ 
+       s.name         src_name
+      ,ds.* 
+from        dba_source     ds
+left join k.src_db_obj_rel sr on ds.name   = sr.db_obj_name 
+left join k.src            s  on sr.src_id = s.id
+where  lower(ds.text) like '%|%'
+--  and  ds.type like '%%'
+--  and  ds.type in ('PACKAGE BODY')
+order by 1,2,3;]]></CODE></TEMPLATE><TEMPLATE name="res" advanced="false"><DESCRIPTION>reset package</DESCRIPTION><CODE><![CDATA[exec dbms_session.reset_package;]]></CODE></TEMPLATE><TEMPLATE name="key" advanced="false"><DESCRIPTION>i_migrt_key</DESCRIPTION><CODE><![CDATA[i_migrt_key]]></CODE></TEMPLATE><TEMPLATE name="keys" advanced="false"><DESCRIPTION>i_migrt_key_seq_nr</DESCRIPTION><CODE><![CDATA[i_migrt_key_seq_nr]]></CODE></TEMPLATE><TEMPLATE name="mig_bp" advanced="false"><DESCRIPTION>Migr API</DESCRIPTION><CODE><![CDATA[set echo on
+set serveroutput on
+set time on
+set timing on
+begin
+  k.session#.open_session(i_bu_id => 9);
+  k.migrt_bp#.gen_bp(
+    i_migr_key                     => '%',
+    i_migr_key_seq_nr              => 0,
+    i_do_queue                     => true,
+    i_chunk_size                   => 10,
+    i_parallel                     => false
+  );
+end;
+/]]></CODE></TEMPLATE><TEMPLATE name="sd" advanced="false"><DESCRIPTION>select from nc$pf$bp_descn</DESCRIPTION><CODE><![CDATA[select *
+from   k.rbsc$bl$decsn_obj]]></CODE></TEMPLATE><TEMPLATE name="lw" advanced="false"><DESCRIPTION>log#write</DESCRIPTION><CODE><![CDATA[nc$pf$util#.log#write(|);]]></CODE></TEMPLATE><TEMPLATE name="le" advanced="false"><DESCRIPTION>log#err</DESCRIPTION><CODE><![CDATA[nc$pf$util#.log#err(|);]]></CODE></TEMPLATE><TEMPLATE name="ms" advanced="false"><DESCRIPTION>i_migrt_source</DESCRIPTION><CODE><![CDATA[i_migrt_source]]></CODE></TEMPLATE><TEMPLATE name="sm" advanced="false"><DESCRIPTION>select * from migrt_</DESCRIPTION><CODE><![CDATA[select *
+from   k.migrt_|]]></CODE></TEMPLATE><TEMPLATE name="err" advanced="false"><DESCRIPTION>migr err</DESCRIPTION><CODE><![CDATA[select a.o_err, a.*
+from   k.migrt_|   a
+where  a.o_err is not null;]]></CODE></TEMPLATE><TEMPLATE name="errg" advanced="false"><DESCRIPTION>migr err grouped</DESCRIPTION><CODE><![CDATA[select substr(o_err, instr(o_err,'/')+1) err, count(*) cnt
+from   k.migrt_|
+where  o_err is not null
+group  by substr(o_err, instr(o_err,'/')+1)
+order  by 2 desc;]]></CODE></TEMPLATE><TEMPLATE name="sl" advanced="false"><DESCRIPTION>select from mc$pf$log</DESCRIPTION><CODE><![CDATA[select *
+from   k.rbsc$bl$log
+where  logger_level < 15
+order  by id desc]]></CODE></TEMPLATE><TEMPLATE name="auth" advanced="false"><DESCRIPTION>bp_pers_rel_auth</DESCRIPTION><CODE><![CDATA[select get_obj(pr.obj_id) bp_name, pr.bp_person_rel_type_id, crt.name, pra.auth_role_id, car.name,  get_obj(rel_person_id) person_name, op.person_type_id, cpt.intl_id, pr.*, pra.*
+from   obj_bp_person_rel       pr
+join   obj_bp_pers_rel_auth    pra on pr.id = pra.bp_person_rel_id
+join   code_bp_person_rel_type crt on pr.bp_person_rel_type_id = crt.id
+join   code_auth_role          car on pra.auth_role_id = car.id
+join   obj_person              op  on pr.rel_person_id = op.obj_id
+join   code_obj_sub_type       cpt on op.person_type_id = cpt.id
+where  1 = 1
+  and  pr.obj_id        = |  /* bp_id */
+--  and  pr.rel_person_id = 
+--  and  pr.rel_person_id not in ( 270444, 261613, 262414 )]]></CODE></TEMPLATE><TEMPLATE name="src" advanced="false"><DESCRIPTION>search in sources</DESCRIPTION><CODE><![CDATA[select /* + parallel(8) */
+       s.name         src_name
+      ,ds.*
+from        dba_source     ds
+left join k.src_db_obj_rel sr on ds.name   = sr.db_obj_name
+left join k.src            s  on sr.src_id = s.id
+where  lower(ds.text) like '%|%'
+--  and  ds.type like '%%'
+--  and  ds.type in ('#39'PACKAGE BODY'#39')'
+order by 1,2,3;]]></CODE></TEMPLATE><TEMPLATE name="or" advanced="false"><DESCRIPTION>obj_remv</DESCRIPTION><CODE><![CDATA[exec obj_remv#.obj#remv(|);]]></CODE></TEMPLATE><TEMPLATE name="orb" advanced="false"><DESCRIPTION>obj_remv (bulk)</DESCRIPTION><CODE><![CDATA[exec session#.open_session(i_bu_id => 7);
+delete from list_obj_i;
+insert into list_obj_i
+select o_obj_id
+from   migrt_asset
+where  i_migrt_source = ''
+  and  o_obj_id is not null;
+
+exec obj_remv#.obj#remv_by_list_obj_i;]]></CODE></TEMPLATE><TEMPLATE name="r" advanced="false"><DESCRIPTION>rbsc$bl$</DESCRIPTION><CODE><![CDATA[rbsc$bl$|]]></CODE></TEMPLATE><TEMPLATE name="cta" advanced="false"><DESCRIPTION>create table as</DESCRIPTION><CODE><![CDATA[create table | parallel nologging as]]></CODE></TEMPLATE><TEMPLATE name="tn" advanced="false"><DESCRIPTION>to_number with conversion error</DESCRIPTION><CODE><![CDATA[to_number(| default null on conversion error)]]></CODE></TEMPLATE><TEMPLATE name="lgi" advanced="false"><DESCRIPTION>lib_co.get_item</DESCRIPTION><CODE><![CDATA[k.lib_co.get_item(6,i_migrt_key,'.')]]></CODE></TEMPLATE><TEMPLATE name="dm" advanced="false"><DESCRIPTION>def max date</DESCRIPTION><CODE><![CDATA[to_date('47121231', 'YYYYMMDD');]]></CODE></TEMPLATE><TEMPLATE name="timing " advanced="false"><DESCRIPTION>get timing for a query</DESCRIPTION><CODE><![CDATA[set echo on
+
+variable n number
+
+exec :n := dbms_utility.get_time
+
+set termout off
+
+select * from your_table;  -- The query here
+
+set termout on
+
+exec dbms_output.put_line( ((dbms_utility.get_time-:n)/100) )]]></CODE></TEMPLATE><TEMPLATE name="rb" advanced="false"><DESCRIPTION>runbook</DESCRIPTION><CODE><![CDATA[select a.phase, a.* from rbsc$bl$runbook a
+where  1 = 1
+  and  phase in ('Position')
+--  and  resp  in ('Gianni')
+--  and  id > 4270
+--  and  o_timestamp_end is null
+order by 2 asc;]]></CODE></TEMPLATE><TEMPLATE name="go" advanced="false"><DESCRIPTION>get_obj</DESCRIPTION><CODE><![CDATA[select get_obj(|)
+from   dual;]]></CODE></TEMPLATE><TEMPLATE name="tdl" advanced="false"><DESCRIPTION>date long</DESCRIPTION><CODE><![CDATA[to_date('|','dd.mm.yyyy hh24:mi:ss')]]></CODE></TEMPLATE><TEMPLATE name="keyl" advanced="false"><DESCRIPTION>i_migrt_key like 'BL.ADA.CUK.%'</DESCRIPTION><CODE><![CDATA[i_migrt_key like 'BL.ADA.CUK.%']]></CODE></TEMPLATE><TEMPLATE name="view" advanced="false"><DESCRIPTION>all views</DESCRIPTION><CODE><![CDATA[select *
+from   all_views
+where  1 =1 
+  and  owner       = 'K'
+  and  view_name  like '%|%';]]></CODE></TEMPLATE><TEMPLATE name="stat" advanced="false"><DESCRIPTION>migr stats</DESCRIPTION><CODE><![CDATA[select i_migrt_key_seq_nr
+      ,o_migrt_run_seq_nr
+      ,count(*) cnt, count(o_doc_id) OK, count(o_err) err
+      ,min(o_timestamp),max(o_timestamp),round((max(o_timestamp)-min(o_timestamp))*24*60,2) elapsed
+      ,case when o_migrt_run_seq_nr is not null and (max(o_timestamp)-min(o_timestamp)) > 0 then
+         to_char(count(o_migrt_run_seq_nr)/((max(o_timestamp)-min(o_timestamp))*24),'999G999')
+       end orders_per_h
+from   k.migrt_|
+group  by i_migrt_key_seq_nr
+         ,o_migrt_run_seq_nr
+order  by 1, 2;]]></CODE></TEMPLATE><TEMPLATE name="cpu" advanced="false"><DESCRIPTION>nr of cpus and more</DESCRIPTION><CODE><![CDATA[select stat_name,to_char(value) as value ,comments from v$osstat where stat_name in ('NUM_CPUS','NUM_CPU_CORES','NUM_CPU_SOCKETS')
+union
+select stat_name,value/1024/1024/1024 || ' GB' ,comments from v$osstat where stat_name in ('PHYSICAL_MEMORY_BYTES')]]></CODE></TEMPLATE><TEMPLATE name="dml" advanced="false"><DESCRIPTION>enable_parallel_dml parallel</DESCRIPTION><CODE><![CDATA[ /*+ enable_parallel_dml parallel */]]></CODE></TEMPLATE><TEMPLATE name="smk" advanced="false"><DESCRIPTION>select * from migrt_ where i_migrt_key like</DESCRIPTION><CODE><![CDATA[select *
+from   k.migrt_|
+where  i_migrt_key like 'BL.ADA.%']]></CODE></TEMPLATE><TEMPLATE name="dates" advanced="false"><DESCRIPTION></DESCRIPTION><CODE><![CDATA[select k.rbsc$bl$def#.get_veri_date   veri_date
+     , k.rbsc$bl$def#.get_value_date  val_date   -- only value_date -1, except monday
+     , k.rbsc$bl$def#.get_trx_date    trx_date
+     , k.rbsc$bl$def#.get_perf_date   perf_date
+     , k.rbsc$bl$def#.get_close_date  close_date
+     , k.base#.today
+from   dual;]]></CODE></TEMPLATE><TEMPLATE name="ocd" advanced="false"><DESCRIPTION>order by count(*) desc</DESCRIPTION><CODE><![CDATA[order by count(*) desc]]></CODE></TEMPLATE><TEMPLATE name="at" advanced="false"><DESCRIPTION>auto trace</DESCRIPTION><CODE><![CDATA[set autotrace traceonly;]]></CODE></TEMPLATE><TEMPLATE name="--+" advanced="false"><DESCRIPTION>--+ ----------------------------------------------------------------------------</DESCRIPTION><CODE><![CDATA[--+ ----------------------------------------------------------------------------]]></CODE></TEMPLATE><TEMPLATE name="setto" advanced="false"><DESCRIPTION>set for autotrace</DESCRIPTION><CODE><![CDATA[set linesize 200
+set echo on
+set serveroutput on
+set time on
+set timing on
+exec k.session#.open_session;
+set autotrace traceonly;
+|]]></CODE></TEMPLATE></TEMPLATES>

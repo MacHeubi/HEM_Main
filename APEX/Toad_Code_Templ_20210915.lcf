@@ -1,0 +1,5008 @@
+object FSynt: TSyntAnalyzer
+  Formats = <
+    item
+      DisplayName = 'Default'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Identifier'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Reserved word'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'String'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Comment'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Symbol'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Number'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Marked block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlightText
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+      BgColor = clHighlight
+      FormatType = ftColor
+    end
+    item
+      DisplayName = 'Reserved PL/SQL word'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'SQL Functions'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'SQL*Plus Meta Commands'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Predefined Exceptions'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Default Oracle Packages'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Public Package Procedure'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = [fsBold, fsItalic]
+    end
+    item
+      DisplayName = 'Function separator'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+      BgColor = clRed
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = 'Current block'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = [fsBold]
+      BgColor = clBtnFace
+      FormatType = ftColor
+      BorderTypeLeft = blDot
+      BorderColorLeft = clMaroon
+      BorderTypeTop = blDot
+      BorderColorTop = clMaroon
+      BorderTypeRight = blDot
+      BorderColorRight = clMaroon
+      BorderTypeBottom = blDot
+      BorderColorBottom = clMaroon
+    end
+    item
+      DisplayName = 'Current function'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+      BgColor = 16777205
+      FormatType = ftBackGround
+      MultiLineBorder = True
+    end
+    item
+      DisplayName = 'Current Line'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+      BgColor = 13369080
+      FormatType = ftBackGround
+    end
+    item
+      DisplayName = '()'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = [fsBold, fsUnderline]
+      BgColor = clBtnFace
+      BorderTypeLeft = blDot
+      BorderTypeTop = blDot
+      BorderTypeRight = blDot
+      BorderTypeBottom = blDot
+    end
+    item
+      DisplayName = 'Big Bold (tree)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Times New Roman'
+      Font.Style = [fsBold]
+      FormatType = ftCustomFont
+    end
+    item
+      DisplayName = 'Group (tree)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clPurple
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = [fsBold, fsItalic]
+    end
+    item
+      DisplayName = 'Function (tree)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = [fsBold]
+    end
+    item
+      DisplayName = 'Toad_Datatypes'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Toad_UserTables'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Toad_UserViews'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Toad_UserProcs'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end
+    item
+      DisplayName = 'Toad_SYSViews'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clOlive
+      Font.Height = -13
+      Font.Name = 'Courier'
+      Font.Style = []
+    end>
+  TokenRules = <
+    item
+      DisplayName = 'Comment'
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)(/\*.*?(\*/|\Z))|(?-s)(--.*)|(REM\s.*)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String Q-Quote'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = 
+        '(?s)(q'#39')((<.*?)(>'#39'|\Z)|(\(.*?)(\)'#39'|\Z)|({.*?)(}'#39'|\Z)|(\[.*?)(\]'#39 +
+        '|\Z))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String Q-Quote Catchall'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)(q'#39')((.).*?(\3'#39'|\Z))'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'String'
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)('#39'|")(.*?)(\1|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Float'
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '\d+\.?\d+e[\+\-]?\d+|\d+\.\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Integer'
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Public Package Procedure'
+      StyleName = 'Public Package Procedure'
+      TokenType = 2
+      Expression = 'DBMS_\w+?\.\w+'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Any name'
+      StyleName = 'Identifier'
+      TokenType = 2
+      Expression = '(?r)[\w$\#]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = 'Symbol'
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/,\.;:\(\)=<>\+\-\|]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_Float'
+      Enabled = False
+      StyleName = 'Number'
+      TokenType = 6
+      Expression = '\d+\.?\d+e[\+\-]?\d+|\d+\.\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_Integer'
+      Enabled = False
+      StyleName = 'Number'
+      TokenType = 5
+      Expression = '\d+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_Comment 1'
+      Enabled = False
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '(?s)/\*.*?(\*/|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_Comment 2'
+      Enabled = False
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = '--.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_Comment 3'
+      Enabled = False
+      StyleName = 'Comment'
+      TokenType = 1
+      Expression = 'REM\s.*'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_Public Package Procedure'
+      Enabled = False
+      StyleName = 'Public Package Procedure'
+      TokenType = 2
+      Expression = 'DBMS_\w+?\.\w+'#13#10
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_String Q1'
+      Enabled = False
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)q'#39'\{.*?((\}'#39')|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_String Q2'
+      Enabled = False
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)q'#39'\(.*?((\)'#39')|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_String Q3'
+      Enabled = False
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)q'#39'\[.*?((\]'#39')|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_String Q4'
+      Enabled = False
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)q'#39'<.*?((>'#39')|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_String Q5'
+      Enabled = False
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)q'#39'!.*?((!'#39')|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_String 1'
+      Enabled = False
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)'#39'.*?('#39'|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_String 2'
+      Enabled = False
+      StyleName = 'String'
+      TokenType = 4
+      Expression = '(?s)".*?("|\Z)'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_Any name'
+      Enabled = False
+      StyleName = 'Identifier'
+      TokenType = 2
+      Expression = '(?r)[\w$\#_]+'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end
+    item
+      DisplayName = '_Symbol'
+      Enabled = False
+      StyleName = 'Symbol'
+      TokenType = 3
+      Expression = '[/,\.;:\(\)=<>\+\-]'
+      ColumnFrom = 0
+      ColumnTo = 0
+    end>
+  BlockRules = <
+    item
+      DisplayName = 'Keywords'
+      StyleName = 'Reserved word'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@'
+            '@@'
+            'A'
+            'ABORT'
+            'ABS'
+            'ACC'
+            'ACCEPT'
+            'ACCESS'
+            'ACCESS_INTO_NULL'
+            'ACCESSED'
+            'ACCOUNT'
+            'ACOS'
+            'ACTIVATE'
+            'ADD'
+            'ADD_MONTHS'
+            'ADMIN'
+            'ADMINISTER'
+            'ADMINISTRATOR'
+            'ADVISE'
+            'ADVISOR'
+            'AFTER'
+            'ALGORITHM'
+            'ALIAS'
+            'ALL'
+            'ALL_ROWS'
+            'ALLOCATE'
+            'ALLOW'
+            'ALTER'
+            'ALWAYS'
+            'ANALYZE'
+            'ANCILLARY'
+            'AND'
+            'AND_EQUAL'
+            'ANTIJOIN'
+            'ANY'
+            'APPEND'
+            'APPLY'
+            'ARCHIVE'
+            'ARCHIVELOG'
+            'ARRAY'
+            'ARRAYLEN'
+            'AS'
+            'ASC'
+            'ASCII'
+            'ASIN'
+            'ASSOCIATE'
+            'AT'
+            'ATAN'
+            'ATAN2'
+            'ATTRIBUTE'
+            'ATTRIBUTES'
+            'AUDIT'
+            'AUTHENTICATED'
+            'AUTHENTICATION'
+            'AUTHID'
+            'AUTHORIZATION'
+            'AUTO'
+            'AUTOALLOCATE'
+            'AUTOEXTEND'
+            'AUTOMATIC'
+            'AVAILABILITY'
+            'AVG'
+            'BACKUP'
+            'BASE_TABLE'
+            'BASICFILE'
+            'BATCH'
+            'BECOME'
+            'BEFORE'
+            'BEGIN'
+            'BEGIN_OUTLINE_DATA'
+            'BEHALF'
+            'BETWEEN'
+            'BFILE'
+            'BFILENAME'
+            'BIGFILE'
+            'BINARY_DOUBLE'
+            'BINARY_DOUBLE_INFINITY'
+            'BINARY_DOUBLE_NAN'
+            'BINARY_FLOAT'
+            'BINARY_FLOAT_INFINITY'
+            'BINARY_FLOAT_NAN'
+            'BINARY_INTEGER'
+            'BINDING'
+            'BITAND'
+            'BITMAP'
+            'BITMAP_TREE'
+            'BITMAPS'
+            'BITS'
+            'BLOB'
+            'BLOCK'
+            'BLOCK_RANGE'
+            'BLOCKS'
+            'BLOCKSIZE'
+            'BODY'
+            'BOOLEAN'
+            'BOTH'
+            'BOUND'
+            'BREAK'
+            'BROADCAST'
+            'BTITLE'
+            'BUFFER'
+            'BUFFER_CACHE'
+            'BUFFER_POOL'
+            'BUILD'
+            'BULK'
+            'BY'
+            'BYPASS_RECURSIVE_CHECK'
+            'BYPASS_UJVC'
+            'BYTE'
+            'CACHE'
+            'CACHE_CB'
+            'CACHE_INSTANCES'
+            'CACHE_TEMP_TABLE'
+            'CALL'
+            'CANCEL'
+            'CARDINALITY'
+            'CASCADE'
+            'CASE'
+            'CAST'
+            'CATEGORY'
+            'CEIL'
+            'CERTIFICATE'
+            'CFILE'
+            'CHAINED'
+            'CHANGE'
+            'CHAR'
+            'CHAR_BASE'
+            'CHAR_CS'
+            'CHARACTER'
+            'CHARTOROWID'
+            'CHECK'
+            'CHECKPOINT'
+            'CHILD'
+            'CHOOSE'
+            'CHR'
+            'CHUNK'
+            'CIV_GB'
+            'CLASS'
+            'CLEAR'
+            'CLOB'
+            'CLONE'
+            'CLOSE'
+            'CLOSE_CACHED_OPEN_CURSORS'
+            'CLUSTER'
+            'CLUSTERING_FACTOR'
+            'CLUSTERS'
+            'COALESCE'
+            'COARSE'
+            'COLLECT'
+            'COLLECTION_IS_NULL'
+            'COLUMN'
+            'COLUMN_STATS'
+            'COLUMN_VALUE'
+            'COLUMNS'
+            'COMMENT'
+            'COMMIT'
+            'COMMITTED'
+            'COMPACT'
+            'COMPATIBILITY'
+            'COMPILE'
+            'COMPLETE'
+            'COMPOSITE_LIMIT'
+            'COMPRESS'
+            'COMPUTE'
+            'CONCAT'
+            'CONFORMING'
+            'CONNECT'
+            'CONNECT_BY_COST_BASED'
+            'CONNECT_BY_FILTERING'
+            'CONNECT_BY_ISCYCLE'
+            'CONNECT_BY_ISLEAF'
+            'CONNECT_BY_ROOT'
+            'CONNECT_TIME'
+            'CONSIDER'
+            'CONSISTENT'
+            'CONSTANT'
+            'CONSTRAINT'
+            'CONSTRAINTS'
+            'CONTAINER'
+            'CONTENT'
+            'CONTENTS'
+            'CONTEXT'
+            'CONTINUE'
+            'CONTROLFILE'
+            'CONVERT'
+            'COPY'
+            'CORR_K'
+            'CORR_S'
+            'CORRUPTION'
+            'COS'
+            'COSH'
+            'COST'
+            'COUNT'
+            'CPU_COSTING'
+            'CPU_PER_CALL'
+            'CPU_PER_SESSION'
+            'CRASH'
+            'CREATE'
+            'CREATE_STORED_OUTLINES'
+            'CROSS'
+            'CUBE'
+            'CUBE_GB'
+            'CURRENT'
+            'CURRENT_DATE'
+            'CURRENT_SCHEMA'
+            'CURRENT_TIME'
+            'CURRENT_TIMESTAMP'
+            'CURRENT_USER'
+            'CURRVAL'
+            'CURSOR'
+            'CURSOR_ALREADY_OPEN'
+            'CURSOR_SHARING_EXACT'
+            'CURSOR_SPECIFIC_SEGMENT'
+            'CV'
+            'CYCLE'
+            'DANGLING'
+            'DATA'
+            'DATABASE'
+            'DATAFILE'
+            'DATAFILES'
+            'DATAOBJNO'
+            'DATE'
+            'DATE_MODE'
+            'DAY'
+            'DB_ROLE_CHANGE'
+            'DBA'
+            'DBA_RECYCLEBIN'
+            'DBMS_STATS'
+            'DBTIMEZONE'
+            'DDL'
+            'DEALLOCATE'
+            'DEBUG'
+            'DEBUGOFF'
+            'DEBUGON'
+            'DEC'
+            'DECIMAL'
+            'DECLARE'
+            'DECODE'
+            'DECREMENT'
+            'DECRYPT'
+            'DEDUPLICATE'
+            'DEF'
+            'DEFAULT'
+            'DEFERRABLE'
+            'DEFERRED'
+            'DEFINE'
+            'DEFINE_EDITOR'
+            'DEFINED'
+            'DEFINER'
+            'DEFINITION'
+            'DEGREE'
+            'DEL'
+            'DELAY'
+            'DELETE'
+            'DELETING'
+            'DELTA'
+            'DEMAND'
+            'DENSE_RANK'
+            'DEQUEUE'
+            'DEREF'
+            'DEREF_NO_REWRITE'
+            'DESC'
+            'DESCRIBE'
+            'DETACHED'
+            'DETERMINES'
+            'DICTIONARY'
+            'DIGITS'
+            'DIMENSION'
+            'DIRECT_LOAD'
+            'DIRECTORY'
+            'DISABLE'
+            'DISABLE_RPKE'
+            'DISASSOCIATE'
+            'DISCONNECT'
+            'DISK'
+            'DISKGROUP'
+            'DISKS'
+            'DISMOUNT'
+            'DISPATCHERS'
+            'DISTINCT'
+            'DISTINGUISHED'
+            'DISTRIBUTED'
+            'DML'
+            'DML_UPDATE'
+            'DO'
+            'DOCUMENT'
+            'DOMAIN_INDEX_NO_SORT'
+            'DOMAIN_INDEX_SORT'
+            'DOUBLE'
+            'DOWNGRADE'
+            'DRIVING_SITE'
+            'DROP'
+            'DUMP'
+            'DUP_VAL_ON_INDEX'
+            'DYNAMIC'
+            'DYNAMIC_SAMPLING'
+            'DYNAMIC_SAMPLING_EST_CDN'
+            'E'
+            'EACH'
+            'EDIT'
+            'ELEMENT'
+            'ELIMINATE_JOIN'
+            'ELIMINATE_OBY'
+            'ELIMINATE_OUTER_JOIN'
+            'ELSE'
+            'ELSIF'
+            'EMPTY'
+            'EMPTY_BLOB'
+            'EMPTY_CLOB'
+            'ENABLE'
+            'ENCRYPT'
+            'ENCRYPTED'
+            'ENCRYPTION'
+            'END'
+            'END_OUTLINE_DATA'
+            'ENFORCE'
+            'ENFORCED'
+            'ENQUEUE'
+            'ENTERPRISE'
+            'ENTRY'
+            'ERROR'
+            'ERROR_ON_OVERLAP_TIME'
+            'ERRORS'
+            'ESCAPE'
+            'ESTIMATE'
+            'EVALNAME'
+            'EVALUATION'
+            'EVENTS'
+            'EXCEPT'
+            'EXCEPTION'
+            'EXCEPTION_INIT'
+            'EXCEPTIONS'
+            'EXCHANGE'
+            'EXCLUDING'
+            'EXCLUSIVE'
+            'EXEC'
+            'EXECUTE'
+            'EXEMPT'
+            'EXISTS'
+            'EXIT'
+            'EXP'
+            'EXPAND_GSET_TO_UNION'
+            'EXPIRE'
+            'EXPLAIN'
+            'EXPLOSION'
+            'EXPORT'
+            'EXPR_CORR_CHECK'
+            'EXTEND'
+            'EXTENDS'
+            'EXTENT'
+            'EXTENTS'
+            'EXTERNAL'
+            'EXTERNALLY'
+            'EXTRACT'
+            'FACT'
+            'FAILED'
+            'FAILED_LOGIN_ATTEMPTS'
+            'FAILGROUP'
+            'FALSE'
+            'FAST'
+            'FBTSCAN'
+            'FETCH'
+            'FIC_CIV'
+            'FIC_PIV'
+            'FILE'
+            'FILESYSTEM_LIKE_LOGGING'
+            'FILTER'
+            'FINAL'
+            'FINE'
+            'FINISH'
+            'FIRST'
+            'FIRST_ROWS'
+            'FLAGGER'
+            'FLASHBACK'
+            'FLOAT'
+            'FLOB'
+            'FLOOR'
+            'FLUSH'
+            'FOLLOWING'
+            'FOR'
+            'FORALL'
+            'FORCE'
+            'FORCE_XML_QUERY_REWRITE'
+            'FOREIGN'
+            'FORM'
+            'FORTRAN'
+            'FOUND'
+            'FREELIST'
+            'FREELISTS'
+            'FREEPOOLS'
+            'FRESH'
+            'FROM'
+            'FULL'
+            'FUNCTION'
+            'FUNCTIONS'
+            'G'
+            'GATHER_PLAN_STATISTICS'
+            'GBY_CONC_ROLLUP'
+            'GENERATED'
+            'GENERIC'
+            'GET'
+            'GLOBAL'
+            'GLOBAL_NAME'
+            'GLOBAL_TOPIC_ENABLED'
+            'GLOBALLY'
+            'GO'
+            'GOTO'
+            'GRANT'
+            'GREATEST'
+            'GROUP'
+            'GROUP_BY'
+            'GROUPING'
+            'GROUPS'
+            'GUARANTEE'
+            'GUARANTEED'
+            'GUARD'
+            'HASH'
+            'HASH_AJ'
+            'HASH_SJ'
+            'HASHKEYS'
+            'HAVING'
+            'HEADER'
+            'HEAP'
+            'HELP'
+            'HEXTORAW'
+            'HIERARCHY'
+            'HIGH'
+            'HINTSET_BEGIN'
+            'HINTSET_END'
+            'HOST'
+            'HOUR'
+            'HWM_BROKERED'
+            'ID'
+            'IDENTIFIED'
+            'IDENTIFIER'
+            'IDENTITY'
+            'IDGENERATORS'
+            'IDLE_TIME'
+            'IF'
+            'IGNORE'
+            'IGNORE NAV'
+            'IGNORE_OPTIM_EMBEDDED_HINTS'
+            'IGNORE_WHERE_CLAUSE'
+            'IMMEDIATE'
+            'IMPORT'
+            'IN'
+            'IN_MEMORY_METADATA'
+            'INCLUDE_VERSION'
+            'INCLUDING'
+            'INCREMENT'
+            'INCREMENTAL'
+            'INDEX'
+            'INDEX_ASC'
+            'INDEX_COMBINE'
+            'INDEX_DESC'
+            'INDEX_FFS'
+            'INDEX_FILTER'
+            'INDEX_JOIN'
+            'INDEX_ROWS'
+            'INDEX_RRS'
+            'INDEX_SCAN'
+            'INDEX_SKIP_SCAN'
+            'INDEX_SS'
+            'INDEX_SS_ASC'
+            'INDEX_SS_DESC'
+            'INDEX_STATS'
+            'INDEXED'
+            'INDEXES'
+            'INDEXTYPE'
+            'INDEXTYPES'
+            'INDICATOR'
+            'INFINITE'
+            'INFORMATIONAL'
+            'INITCAP'
+            'INITIAL'
+            'INITIALIZED'
+            'INITIALLY'
+            'INITRANS'
+            'INLINE'
+            'INLINE_XMLTYPE_NT'
+            'INNER'
+            'INPUT'
+            'INSERT'
+            'INSERTING'
+            'INSTANCE'
+            'INSTANCES'
+            'INSTANTIABLE'
+            'INSTANTLY'
+            'INSTEAD'
+            'INSTR'
+            'INSTRB'
+            'INT'
+            'INTEGER'
+            'INTEGRITY'
+            'INTERFACE'
+            'INTERMEDIATE'
+            'INTERNAL_CONVERT'
+            'INTERNAL_USE'
+            'INTERPRETED'
+            'INTERSECT'
+            'INTERVAL'
+            'INTO'
+            'INVALID_CURSOR'
+            'INVALID_NUMBER'
+            'INVALIDATE'
+            'INVISIBLE'
+            'IS'
+            'IS A SET'
+            'IS ANY'
+            'IS EMPTY'
+            'IS PRESENT'
+            'ISOLATION'
+            'ISOLATION_LEVEL'
+            'ITERATE'
+            'ITERATION_NUMBER'
+            'JAVA'
+            'JOB'
+            'JOIN'
+            'K'
+            'KEEP'
+            'KEEP_DUPLICATES'
+            'KERBEROS'
+            'KEY'
+            'KEY_LENGTH'
+            'KEYFILE'
+            'KEYS'
+            'KEYSIZE'
+            'KILL'
+            'LABEL'
+            'LANGUAGE'
+            'LAST'
+            'LAST_DAY'
+            'LATERAL'
+            'LAYER'
+            'LDAP_REG_SYNC_INTERVAL'
+            'LDAP_REGISTRATION'
+            'LDAP_REGISTRATION_ENABLED'
+            'LEADING'
+            'LEAST'
+            'LEFT'
+            'LENGTH'
+            'LENGTHB'
+            'LESS'
+            'LEVEL'
+            'LEVELS'
+            'LIBRARY'
+            'LIKE'
+            'LIKE_EXPAND'
+            'LIKE2'
+            'LIKE4'
+            'LIKEC'
+            'LIMIT'
+            'LIMITED'
+            'LINK'
+            'LIST'
+            'LISTS'
+            'LN'
+            'LOB'
+            'LOCAL'
+            'LOCAL_INDEXES'
+            'LOCALTIME'
+            'LOCALTIMESTAMP'
+            'LOCATION'
+            'LOCATOR'
+            'LOCK'
+            'LOCKED'
+            'LOG'
+            'LOGFILE'
+            'LOGGING'
+            'LOGICAL'
+            'LOGICAL_READS_PER_CALL'
+            'LOGICAL_READS_PER_SESSION'
+            'LOGIN_DENIED'
+            'LOGOFF'
+            'LOGON'
+            'LONG'
+            'LOOP'
+            'LOWER'
+            'LPAD'
+            'LTRIM'
+            'M'
+            'MAIN'
+            'MAKE_REF'
+            'MANAGE'
+            'MANAGED'
+            'MANAGEMENT'
+            'MANUAL'
+            'MAPPING'
+            'MASTER'
+            'MATCHED'
+            'MATERIALIZE'
+            'MATERIALIZED'
+            'MAX'
+            'MAXARCHLOGS'
+            'MAXDATAFILES'
+            'MAXEXTENTS'
+            'MAXIMIZE'
+            'MAXINSTANCES'
+            'MAXLOGFILES'
+            'MAXLOGHISTORY'
+            'MAXLOGMEMBERS'
+            'MAXSIZE'
+            'MAXTRANS'
+            'MAXVALUE'
+            'MEASURES'
+            'MEDIAN'
+            'MEDIUM'
+            'MEMBER'
+            'MEMORY'
+            'MERGE'
+            'MERGE_AJ'
+            'MERGE_CONST_ON'
+            'MERGE_SJ'
+            'METHOD'
+            'MIGRATE'
+            'MIN'
+            'MINEXTENTS'
+            'MINIMIZE'
+            'MINIMUM'
+            'MINUS'
+            'MINUS_NULL'
+            'MINUTE'
+            'MINVALUE'
+            'MIRROR'
+            'MLSLABEL'
+            'MOD'
+            'MODE'
+            'MODEL'
+            'MODEL_COMPILE_SUBQUERY'
+            'MODEL_DONTVERIFY_UNIQUENESS'
+            'MODEL_DYNAMIC_SUBQUERY'
+            'MODEL_MIN_ANALYSIS'
+            'MODEL_NO_ANALYSIS'
+            'MODEL_PBY'
+            'MODEL_PUSH_REF'
+            'MODIFY'
+            'MONITORING'
+            'MONTH'
+            'MONTHS_BETWEEN'
+            'MOUNT'
+            'MOVE'
+            'MOVEMENT'
+            'MTS_DISPATCHERS'
+            'MULTISET'
+            'MV_MERGE'
+            'NAME'
+            'NAMED'
+            'NAN'
+            'NANVL'
+            'NATIONAL'
+            'NATIVE'
+            'NATURAL'
+            'NATURALN'
+            'NAV'
+            'NCHAR'
+            'NCHAR_CS'
+            'NCLOB'
+            'NEEDED'
+            'NESTED'
+            'NESTED_TABLE_FAST_INSERT'
+            'NESTED_TABLE_GET_REFS'
+            'NESTED_TABLE_ID'
+            'NESTED_TABLE_SET_REFS'
+            'NESTED_TABLE_SET_SETID'
+            'NETWORK'
+            'NEVER'
+            'NEW'
+            'NEW_TIME'
+            'NEXT'
+            'NEXT_DAY'
+            'NEXTVAL'
+            'NL_AJ'
+            'NL_SJ'
+            'NLS_CALENDAR'
+            'NLS_CHARACTERSET'
+            'NLS_CHARSET_DECL_LEN'
+            'NLS_CHARSET_ID'
+            'NLS_CHARSET_NAME'
+            'NLS_COMP'
+            'NLS_CURRENCY'
+            'NLS_DATE_FORMAT'
+            'NLS_DATE_LANGUAGE'
+            'NLS_INITCAP'
+            'NLS_ISO_CURRENCY'
+            'NLS_LANG'
+            'NLS_LANGUAGE'
+            'NLS_LENGTH_SEMANTICS'
+            'NLS_LOWER'
+            'NLS_NCHAR_CONV_EXCP'
+            'NLS_NUMERIC_CHARACTERS'
+            'NLS_SORT'
+            'NLS_SPECIAL_CHARS'
+            'NLS_TERRITORY'
+            'NLS_UPPER'
+            'NLSSORT'
+            'NO'
+            'NO_ACCESS'
+            'NO_BASETABLE_MULTIMV_REWRITE'
+            'NO_BUFFER'
+            'NO_CARTESIAN'
+            'NO_CONNECT_BY_COST_BASED'
+            'NO_CONNECT_BY_FILTERING'
+            'NO_CPU_COSTING'
+            'NO_DATA_FOUND'
+            'NO_ELIMINATE_JOIN'
+            'NO_ELIMINATE_OBY'
+            'NO_ELIMINATE_OUTER_JOIN'
+            'NO_EXPAND'
+            'NO_EXPAND_GSET_TO_UNION'
+            'NO_FACT'
+            'NO_FILTERING'
+            'NO_INDEX'
+            'NO_INDEX_FFS'
+            'NO_INDEX_SS'
+            'NO_MERGE'
+            'NO_MODEL_PUSH_REF'
+            'NO_MONITORING'
+            'NO_MULTIMV_REWRITE'
+            'NO_ORDER_ROLLUPS'
+            'NO_PARALLEL'
+            'NO_PARALLEL_INDEX'
+            'NO_PARTIAL_COMMIT'
+            'NO_PRUNE_GSETS'
+            'NO_PULL_PRED'
+            'NO_PUSH_PRED'
+            'NO_PUSH_SUBQ'
+            'NO_PX_JOIN_FILTER'
+            'NO_QKN_BUFF'
+            'NO_QUERY_TRANSFORMATION'
+            'NO_REF_CASCADE'
+            'NO_REWRITE'
+            'NO_SEMIJOIN'
+            'NO_SET_TO_JOIN'
+            'NO_SQL_TUNE'
+            'NO_STAR_TRANSFORMATION'
+            'NO_STATS_GSETS'
+            'NO_SWAP_JOIN_INPUTS'
+            'NO_TEMP_TABLE'
+            'NO_UNNEST'
+            'NO_USE_HASH'
+            'NO_USE_HASH_AGGREGATION'
+            'NO_USE_MERGE'
+            'NO_USE_NL'
+            'NO_XML_QUERY_REWRITE'
+            'NOAPPEND'
+            'NOARCHIVELOG'
+            'NOAUDIT'
+            'NOCACHE'
+            'NOCOMPRESS'
+            'NOCOPY'
+            'NOCPU_COSTING'
+            'NOCYCLE'
+            'NODELAY'
+            'NOFORCE'
+            'NOGUARANTEE'
+            'NOLOGGING'
+            'NOMAPPING'
+            'NOMAXVALUE'
+            'NOMINIMIZE'
+            'NOMINVALUE'
+            'NOMONITORING'
+            'NOMOUNT'
+            'NONE'
+            'NOORDER'
+            'NOOVERRIDE'
+            'NOPARALLEL'
+            'NOPARALLEL_INDEX'
+            'NORELY'
+            'NOREPAIR'
+            'NORESETLOGS'
+            'NOREVERSE'
+            'NOREWRITE'
+            'NORMAL'
+            'NOROWDEPENDENCIES'
+            'NOSEGMENT'
+            'NOSORT'
+            'NOSTRICT'
+            'NOSTRIPE'
+            'NOSWITCH'
+            'NOT'
+            'NOT_LOGGED_ON'
+            'NOTFOUND'
+            'NOTHING'
+            'NOTIFICATION'
+            'NOVALIDATE'
+            'NOWAIT'
+            'NULL'
+            'NULLIF'
+            'NULLS'
+            'NUMBER'
+            'NUMBER_BASE'
+            'NUMERIC'
+            'NVARCHAR'
+            'NVARCHAR2'
+            'NVL'
+            'OBJECT'
+            'OBJNO'
+            'OBJNO_REUSE'
+            'OCIROWID'
+            'OF'
+            'OFF'
+            'OFFLINE'
+            'OID'
+            'OIDINDEX'
+            'OLD'
+            'OLD_PUSH_PRED'
+            'ON'
+            'ONLINE'
+            'ONLY'
+            'OPAQUE'
+            'OPAQUE_TRANSFORM'
+            'OPAQUE_XCANONICAL'
+            'OPCODE'
+            'OPEN'
+            'OPERATIONS'
+            'OPERATOR'
+            'OPT_ESTIMATE'
+            'OPT_PARAM'
+            'OPTIMAL'
+            'OPTIMIZER_FEATURES_ENABLE'
+            'OPTIMIZER_GOAL'
+            'OPTION'
+            'OR'
+            'OR_EXPAND'
+            'ORA_HASH'
+            'ORA_ROWSCN'
+            'ORDER'
+            'ORDERED'
+            'ORDERED_PREDICATES'
+            'ORDINALITY'
+            'ORGANIZATION'
+            'OSERROR'
+            'OTHERS'
+            'OUT'
+            'OUT_OF_LINE'
+            'OUTER'
+            'OUTLINE'
+            'OUTLINE_LEAF'
+            'OVER'
+            'OVERFLOW'
+            'OVERFLOW_NOMOVE'
+            'OVERLAPS'
+            'OWN'
+            'P'
+            'PACKAGE'
+            'PACKAGES'
+            'PARALLEL'
+            'PARALLEL_INDEX'
+            'PARAMETERS'
+            'PARENT'
+            'PARITY'
+            'PARTIALLY'
+            'PARTITION'
+            'PARTITION_HASH'
+            'PARTITION_LIST'
+            'PARTITION_RANGE'
+            'PARTITIONS'
+            'PASSING'
+            'PASSWORD'
+            'PASSWORD_GRACE_TIME'
+            'PASSWORD_LIFE_TIME'
+            'PASSWORD_LOCK_TIME'
+            'PASSWORD_REUSE_MAX'
+            'PASSWORD_REUSE_TIME'
+            'PASSWORD_VERIFY_FUNCTION'
+            'PATH'
+            'PATHS'
+            'PAUSE'
+            'PCTFREE'
+            'PCTINCREASE'
+            'PCTTHRESHOLD'
+            'PCTUSED'
+            'PCTVERSION'
+            'PERCENT'
+            'PERFORMANCE'
+            'PERMANENT'
+            'PFILE'
+            'PHYSICAL'
+            'PIV_GB'
+            'PIV_SSF'
+            'PLAN'
+            'PLI'
+            'PLS_INTEGER'
+            'PLSQL_CCFLAGS'
+            'PLSQL_CODE_TYPE'
+            'PLSQL_DEBUG'
+            'PLSQL_OPTIMIZE_LEVEL'
+            'PLSQL_WARNINGS'
+            'POINT'
+            'POLICY'
+            'POSITIVE'
+            'POSITIVEN'
+            'POST_TRANSACTION'
+            'POWER'
+            'POWERMULTISET'
+            'POWERMULTISET_BY_CARDINALITY'
+            'PQ_DISTRIBUTE'
+            'PQ_MAP'
+            'PQ_NOMAP'
+            'PRAGMA'
+            'PREBUILT'
+            'PRECEDING'
+            'PRECISION'
+            'PRECOMPUTE_SUBQUERY'
+            'PREPARE'
+            'PRESENT'
+            'PRESENTNNV'
+            'PRESENTV'
+            'PRESERVE'
+            'PRESERVE_OID'
+            'PREVIOUS'
+            'PRIMARY'
+            'PRINT'
+            'PRIOR'
+            'PRIVATE'
+            'PRIVATE_SGA'
+            'PRIVILEGE'
+            'PRIVILEGES'
+            'PROCEDURE'
+            'PROFILE'
+            'PROGRAM'
+            'PROGRAM_ERROR'
+            'PROJECT'
+            'PROMPT'
+            'PROTECTED'
+            'PROTECTION'
+            'PUBLIC'
+            'PULL_PRED'
+            'PURGE'
+            'PUSH_PRED'
+            'PUSH_SUBQ'
+            'PX_GRANULE'
+            'PX_JOIN_FILTER'
+            'QB_NAME'
+            'QUERY'
+            'QUERY_BLOCK'
+            'QUEUE'
+            'QUEUE_CURR'
+            'QUEUE_ROWP'
+            'QUIESCE'
+            'QUOTA'
+            'RAISE'
+            'RAISE_APPLICATION_ERROR'
+            'RANDOM'
+            'RANGE'
+            'RAPIDLY'
+            'RAW'
+            'RAWTOHEX'
+            'RBA'
+            'RBO_OUTLINE'
+            'READ'
+            'READS'
+            'REAL'
+            'REBALANCE'
+            'REBUILD'
+            'RECORD'
+            'RECORDS_PER_BLOCK'
+            'RECOVER'
+            'RECOVERABLE'
+            'RECOVERY'
+            'RECYCLE'
+            'RECYCLEBIN'
+            'REDUCED'
+            'REDUNDANCY'
+            'REF'
+            'REF_CASCADE_CURSOR'
+            'REFERENCE'
+            'REFERENCED'
+            'REFERENCES'
+            'REFERENCING'
+            'REFRESH'
+            'REFTOHEX'
+            'REGEXP_INSTR'
+            'REGEXP_LIKE'
+            'REGEXP_REPLACE'
+            'REGEXP_SUBSTR'
+            'REGISTER'
+            'REJECT'
+            'REKEY'
+            'RELATIONAL'
+            'release'
+            'RELY'
+            'rem'
+            'REMAINDER'
+            'REMARK'
+            'REMOTE_MAPPED'
+            'RENAME'
+            'REPAIR'
+            'REPLACE'
+            'REQUIRED'
+            'RESET'
+            'RESETLOGS'
+            'RESIZE'
+            'RESOLVE'
+            'RESOLVER'
+            'RESOURCE'
+            'RESTORE'
+            'RESTORE_AS_INTERVALS'
+            'RESTRICT'
+            'RESTRICT_ALL_REF_CONS'
+            'RESTRICT_REFERENCES'
+            'RESTRICTED'
+            'RESUMABLE'
+            'RESUME'
+            'RETENTION'
+            'RETURN'
+            'RETURNING'
+            'REUSE'
+            'REVERSE'
+            'REVOKE'
+            'REWRITE'
+            'REWRITE_OR_ERROR'
+            'RIGHT'
+            'rnds'
+            'rnps'
+            'ROLE'
+            'ROLES'
+            'ROLLBACK'
+            'ROLLING'
+            'ROLLUP'
+            'ROUND'
+            'ROW'
+            'ROW_LENGTH'
+            'rowcount'
+            'ROWDEPENDENCIES'
+            'ROWID'
+            'ROWIDTOCHAR'
+            'ROWLABEL'
+            'ROWNUM'
+            'ROWS'
+            'ROWTYPE'
+            'RPAD'
+            'RTRIM'
+            'RULE'
+            'RULES'
+            'RUN'
+            'RUNFORM'
+            'SALT'
+            'SAMPLE'
+            'SAVE'
+            'SAVE_AS_INTERVALS'
+            'SAVEPOINT'
+            'SB4'
+            'SCALE'
+            'SCALE_ROWS'
+            'SCAN'
+            'SCAN_INSTANCES'
+            'SCHEDULER'
+            'SCHEMA'
+            'SCN'
+            'SCN_ASCENDING'
+            'SCN_TO_TIMESTAMP'
+            'SCOPE'
+            'SD_ALL'
+            'SD_INHIBIT'
+            'SD_SHOW'
+            'SECOND'
+            'SECTION'
+            'SECUREFILE'
+            'SECURITY'
+            'SEED'
+            'SEG_BLOCK'
+            'SEG_FILE'
+            'SEGMENT'
+            'SELECT'
+            'SELECTIVITY'
+            'SEMIJOIN'
+            'SEMIJOIN_DRIVER'
+            'SEPARATE'
+            'SEQUENCE'
+            'SEQUENCED'
+            'SEQUENTIAL'
+            'SEQUENTUAL'
+            'SERIALIZABLE'
+            'SERVERERROR'
+            'SESSION'
+            'SESSION_CACHED_CURSORS'
+            'SESSIONS_PER_USER'
+            'SESSIONTIMEZONE'
+            'SESSIONTZNAME'
+            'SET'
+            'SET_TO_JOIN'
+            'SET_TRANSACTION_USE'
+            'SETS'
+            'SETTINGS'
+            'SEVERE'
+            'SHARE'
+            'SHARED'
+            'SHARED_POOL'
+            'SHOW'
+            'SHRINK'
+            'SHUTDOWN'
+            'SIBLINGS'
+            'SID'
+            'SIGN'
+            'SIMPLE'
+            'SIN'
+            'SINGLE'
+            'SINGLE REFERENCE'
+            'SINGLETASK'
+            'SINH'
+            'SIZE'
+            'SKIP'
+            'SKIP_EXT_OPTIMIZER'
+            'SKIP_UNQ_UNUSABLE_IDX'
+            'SKIP_UNUSABLE_INDEXES'
+            'SMALLFILE'
+            'SMALLINT'
+            'SNAPSHOT'
+            'SOME'
+            'SORT'
+            'SOUNDEX'
+            'SOURCE'
+            'SPACE'
+            'SPECIFICATION'
+            'SPFILE'
+            'SPLIT'
+            'spo'
+            'SPOOL'
+            'SPREADSHEET'
+            'SQL'
+            'SQL_TRACE'
+            'SQLBUF'
+            'SQLCODE'
+            'SQLERRM'
+            'SQLERROR'
+            'SQLLDR'
+            'SQLPLUS'
+            'SQLSTATE'
+            'SQRT'
+            'STA'
+            'STANDALONE'
+            'STANDBY'
+            'STAR'
+            'STAR_TRANSFORMATION'
+            'START'
+            'STARTUP'
+            'STATEMENT'
+            'STATEMENT_ID'
+            'STATIC'
+            'STATISTICS'
+            'STATS_BINOMIAL_TEST'
+            'STATS_CROSSTAB'
+            'STATS_F_TEST'
+            'STATS_KS_TEST'
+            'STATS_MODE'
+            'STATS_MW_TEST'
+            'STATS_ONE_WAY_ANOVA'
+            'STATS_T_TEST_INDEP'
+            'STATS_T_TEST_INDEPU'
+            'STATS_T_TEST_ONE'
+            'STATS_T_TEST_PAIRED'
+            'STATS_WSR_TEST'
+            'STDDEV'
+            'STOP'
+            'STORAGE'
+            'STORAGE_ERROR'
+            'STORE'
+            'STREAMS'
+            'STRICT'
+            'STRING'
+            'STRIP'
+            'STRIPE'
+            'STRUCTURE'
+            'SUBMULTISET'
+            'SUBPARTITION'
+            'SUBPARTITION_REL'
+            'SUBPARTITIONS'
+            'SUBQUERIES'
+            'SUBSCRIPT_BEYOND_COUNT'
+            'SUBSCRIPT_OUTSIDE_LIMIT'
+            'SUBSTITUTABLE'
+            'SUBSTR'
+            'SUBSTRB'
+            'SUBTYPE'
+            'SUCCESSFUL'
+            'SUM'
+            'SUMMARY'
+            'SUPPLEMENTAL'
+            'SUSPEND'
+            'SWAP_JOIN_INPUTS'
+            'SWITCH'
+            'SWITCHOVER'
+            'SYNONYM'
+            'SYS_CONNECT_BY_PATH'
+            'SYS_DL_CURSOR'
+            'SYS_FBT_INSDEL'
+            'SYS_OP_BITVEC'
+            'SYS_OP_CAST'
+            'SYS_OP_COL_PRESENT'
+            'SYS_OP_ENFORCE_NOT_NULL$'
+            'SYS_OP_EXTRACT'
+            'SYS_OP_MINE_VALUE'
+            'SYS_OP_NOEXPAND'
+            'SYS_OP_NTCIMG$'
+            'SYS_PARALLEL_TXN'
+            'SYS_RID_ORDER'
+            'SYS_XMLAGG'
+            'SYS_XMLGEN'
+            'SYSAUX'
+            'SYSDATE'
+            'SYSDBA'
+            'SYSOPER'
+            'SYSTEM'
+            'SYSTIMESTAMP'
+            'T'
+            'TABAUTH'
+            'TABLE'
+            'TABLE_STATS'
+            'TABLES'
+            'TABLESPACE'
+            'TABLESPACE_NO'
+            'TABNO'
+            'TAN'
+            'TANH'
+            'TASK'
+            'TEMP_TABLE'
+            'TEMPFILE'
+            'TEMPLATE'
+            'TEMPORARY'
+            'TERMINATE'
+            'TEST'
+            'THAN'
+            'THE'
+            'THEN'
+            'THREAD'
+            'THROUGH'
+            'TIME'
+            'TIME_ZONE'
+            'TIMEOUT'
+            'TIMEOUT_ON_RESOURCE'
+            'TIMESTAMP'
+            'TIMEZONE_ABBR'
+            'TIMEZONE_HOUR'
+            'TIMEZONE_MINUTE'
+            'TIMEZONE_OFFSET'
+            'TIMEZONE_REGION'
+            'TIMING'
+            'TIV_GB'
+            'TIV_SSF'
+            'TO'
+            'TO_BINARY_DOUBLE'
+            'TO_BINARY_FLOAT'
+            'TO_CHAR'
+            'TO_DATE'
+            'TO_MULTI_BYTE'
+            'TO_NUMBER'
+            'TO_SINGLE_BYTE'
+            'TOO_MANY_ROWS'
+            'TOPLEVEL'
+            'TRACE'
+            'TRACING'
+            'TRACKING'
+            'TRAILING'
+            'TRANSACTION'
+            'TRANSACTIONAL'
+            'TRANSITIONAL'
+            'TRANSLATE'
+            'TREAT'
+            'TRIGGER'
+            'TRIGGERS'
+            'TRUE'
+            'TRUNC'
+            'TRUNCATE'
+            'TRUSTED'
+            'TTITLE'
+            'TUNING'
+            'TX'
+            'TYPE'
+            'TYPES'
+            'TZ_OFFSET'
+            'U'
+            'UB2'
+            'UBA'
+            'UI'
+            'UID'
+            'UNARCHIVED'
+            'UNBOUND'
+            'UNBOUNDED'
+            'UNDEF'
+            'UNDEFINE'
+            'UNDER'
+            'UNDO'
+            'UNDROP'
+            'UNIFORM'
+            'UNION'
+            'UNIQUE'
+            'UNLIMITED'
+            'UNLOCK'
+            'UNNEST'
+            'UNPACKED'
+            'UNPROTECTED'
+            'UNQUIESCE'
+            'UNRECOVERABLE'
+            'UNTIL'
+            'UNUSABLE'
+            'UNUSED'
+            'UPD_INDEXES'
+            'UPD_JOININDEX'
+            'UPDATABLE'
+            'UPDATE'
+            'UPDATED'
+            'UPDATING'
+            'UPGRADE'
+            'UPPER'
+            'UPSERT'
+            'UROWID'
+            'USAGE'
+            'USE'
+            'USE_ANTI'
+            'USE_CONCAT'
+            'USE_HASH'
+            'USE_HASH_AGGREGATION'
+            'USE_MERGE'
+            'USE_NL'
+            'USE_NL_WITH_INDEX'
+            'USE_PRIVATE_OUTLINES'
+            'USE_SEMI'
+            'USE_STORED_OUTLINES'
+            'USE_TTT_FOR_GSETS'
+            'USE_WEAK_NAME_RESL'
+            'USER'
+            'USER_DEFINED'
+            'USER_RECYCLEBIN'
+            'USERENV'
+            'USERS'
+            'USING'
+            'VALIDATE'
+            'VALIDATION'
+            'VALUE'
+            'VALUE_ERROR'
+            'VALUES'
+            'VARCHAR'
+            'VARCHAR2'
+            'VARIABLE'
+            'VARIANCE'
+            'VARRAY'
+            'VARYING'
+            'VECTOR_READ'
+            'VECTOR_READ_TRACE'
+            'VERSION'
+            'VERSIONS'
+            'VIEW'
+            'VIEWS'
+            'VISIBLE'
+            'VSIZE'
+            'WAIT'
+            'WALLET'
+            'WELLFORMED'
+            'WHEN'
+            'WHENEVER'
+            'WHERE'
+            'WHILE'
+            'WHITESPACE'
+            'WITH'
+            'WITHIN'
+            'WITHOUT'
+            'WNDS'
+            'WNPS'
+            'WORK'
+            'WRAPPED'
+            'WRITE'
+            'X_DYN_PRUNE'
+            'XID'
+            'XMLATTRIBUTES'
+            'XMLCOLATTVAL'
+            'XMLELEMENT'
+            'XMLFOREST'
+            'XMLNAMESPACES'
+            'XMLPARSE'
+            'XMLPI'
+            'XMLQUERY'
+            'XMLROOT'
+            'XMLSCHEMA'
+            'XMLSERIALIZE'
+            'XMLTABLE'
+            'XMLTYPE'
+            'YEAR'
+            'YES'
+            'ZERO_DIVIDE'
+            'ZONE')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'SQL*Plus Commands'
+      StyleName = 'SQL*Plus Meta Commands'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '@'
+            '@@'
+            'ABORT'
+            'ACC'
+            'ACCEPT'
+            'APPEND'
+            'BREAK'
+            'BTITLE'
+            'CHANGE'
+            'CLEAR'
+            'COLUMN'
+            'COMPUTE'
+            'CONNECT'
+            'COPY'
+            'DEF'
+            'DEFINE'
+            'DEFINE_EDITOR'
+            'DEL'
+            'DESC'
+            'DESCRIBE'
+            'DISCONNECT'
+            'EDIT'
+            'EXEC'
+            'EXECUTE'
+            'EXIT'
+            'GET'
+            'HELP'
+            'HOST'
+            'IMMEDIATE'
+            'INPUT'
+            'LIST'
+            'MOUNT'
+            'NOMOUNT'
+            'NORMAL'
+            'OFF'
+            'OSERROR'
+            'PAUSE'
+            'PRINT'
+            'PROMPT'
+            'REM'
+            'REMARK'
+            'RUN'
+            'RUNFORM'
+            'SAVE'
+            'SET'
+            'SHOW'
+            'SHUTDOWN'
+            'SPO'
+            'SPOOL'
+            'SQLERROR'
+            'SQLPLUS'
+            'STA'
+            'START'
+            'STARTUP'
+            'TIMING'
+            'TRANSACTIONAL'
+            'TTITLE'
+            'UNDEF'
+            'UNDEFINE'
+            'VARIABLE'
+            'WHENEVER')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'SQL Functions'
+      StyleName = 'SQL Functions'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'abs'
+            'acos'
+            'add_months'
+            'ascii'
+            'asciistr'
+            'asin'
+            'atan'
+            'atan2'
+            'avg'
+            'bfilename'
+            'bin_to_num'
+            'bitand'
+            'cast'
+            'ceil'
+            'chartorowid'
+            'chr'
+            'coalesce'
+            'compose'
+            'concat'
+            'convert'
+            'corr'
+            'cos'
+            'cosh'
+            'count'
+            'covar_pop'
+            'covar_samp'
+            'cume_dist'
+            'current_date'
+            'current_timestamp'
+            'dbtimezone'
+            'decode'
+            'decompose'
+            'dense_rank'
+            'depth'
+            'deref'
+            'dump'
+            'empty_blob'
+            'empty_clob'
+            'existsnode'
+            'exp'
+            'extract'
+            'extractvalue'
+            'first'
+            'floor'
+            'from_tz'
+            'greatest'
+            'group_id'
+            'grouping'
+            'grouping_id'
+            'hextoraw'
+            'initcap'
+            'instr'
+            'last'
+            'last_day'
+            'least'
+            'length'
+            'ln'
+            'localtimestamp'
+            'log'
+            'lower'
+            'lpad'
+            'ltrim'
+            'make_ref'
+            'max'
+            'min'
+            'mod'
+            'months_between'
+            'new_time'
+            'next_day'
+            'nls_charset_decl_len'
+            'nls_charset_id'
+            'nls_charset_name'
+            'nls_initcap'
+            'nls_lower'
+            'nls_upper'
+            'nlssort'
+            'nullif'
+            'numtodsinterval'
+            'numtoyminterval'
+            'nvl'
+            'nvl2'
+            'path'
+            'percent_rank'
+            'percentile_cont'
+            'percentile_disc'
+            'power'
+            'rank'
+            'rawtohex'
+            'rawtonhex'
+            'ref'
+            'reftohex'
+            'regr_avgx'
+            'regr_avgy'
+            'regr_count'
+            'regr_intercept'
+            'regr_r2'
+            'regr_slope'
+            'regr_sxx'
+            'regr_sxystddev'
+            'regr_syy'
+            'round'
+            'rowidtochar'
+            'rowidtonchar'
+            'rpad'
+            'rtrim'
+            'sessiontimezone'
+            'sign'
+            'sin'
+            'sinh'
+            'soundex'
+            'sqrt'
+            'stddev'
+            'stddev_pop'
+            'stddev_samp'
+            'substr'
+            'sum'
+            'sys_connect_by_path'
+            'sys_context'
+            'sys_dburigen'
+            'sys_extract_utc'
+            'sys_guid'
+            'sys_typeid'
+            'sys_xmlagg'
+            'sys_xmlgen'
+            'sysdate'
+            'systimestamp'
+            'tan'
+            'tanh'
+            'to_char'
+            'to_clob'
+            'to_date'
+            'to_dsinterval'
+            'to_lob'
+            'to_multi_byte'
+            'to_nchar'
+            'to_nclob'
+            'to_number'
+            'to_single_byte'
+            'to_timestamp'
+            'to_timestamp_tz'
+            'to_yminterval'
+            'translate'
+            'treat'
+            'trim'
+            'trunc'
+            'tz_offset'
+            'uid'
+            'unistr'
+            'updatexml'
+            'upper'
+            'user'
+            'userenv'
+            'using'
+            'value'
+            'var_pop'
+            'var_samp'
+            'variance'
+            'vsize'
+            'width_bucket'
+            'xmlagg'
+            'xmlcolattval'
+            'xmlconcat'
+            'xmlforest'
+            'xmlsequence'
+            'xmltransform')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Default Oracle Packages'
+      StyleName = 'Default Oracle Packages'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'dbms_alert'
+            'dbms_application_info'
+            'dbms_aq'
+            'dbms_aqadm'
+            'dbms_aqelm'
+            'dbms_backup_restore'
+            'dbms_ddl'
+            'dbms_debug'
+            'dbms_defer'
+            'dbms_defer_query'
+            'dbms_defer_sys'
+            'dbms_describe'
+            'dbms_distributed_trust_admin'
+            'dbms_fga'
+            'dbms_flashback'
+            'dbms_hs_passthrough'
+            'dbms_iot'
+            'dbms_job'
+            'dbms_ldap'
+            'dbms_libcache'
+            'dbms_lob'
+            'dbms_lock'
+            'dbms_logmnr'
+            'dbms_logmnr_cdc_publish'
+            'dbms_logmnr_cdc_subscribe'
+            'dbms_logmnr_d'
+            'dbms_metadata'
+            'dbms_mview'
+            'dbms_obfuscation_toolkit'
+            'dbms_odci'
+            'dbms_offline_og'
+            'dbms_offline_snapshot'
+            'dbms_olap'
+            'dbms_oracle_trace_agent'
+            'dbms_oracle_trace_user'
+            'dbms_outln'
+            'dbms_outln_edit'
+            'dbms_output'
+            'dbms_pclxutil'
+            'dbms_pipe'
+            'dbms_profiler'
+            'dbms_random'
+            'dbms_rectifier_diff'
+            'dbms_redefinition'
+            'dbms_refresh'
+            'dbms_repair'
+            'dbms_repcat'
+            'dbms_repcat_admin'
+            'dbms_repcat_instatiate'
+            'dbms_repcat_rgt'
+            'dbms_reputil'
+            'dbms_resource_manager'
+            'dbms_resource_manager_privs'
+            'dbms_resumable'
+            'dbms_rls'
+            'dbms_rowid'
+            'dbms_session'
+            'dbms_shared_pool'
+            'dbms_snapshot'
+            'dbms_space'
+            'dbms_space_admin'
+            'dbms_sql'
+            'dbms_standard'
+            'dbms_stats'
+            'dbms_trace'
+            'dbms_transaction'
+            'dbms_transform'
+            'dbms_tts'
+            'dbms_types'
+            'dbms_utility'
+            'dbms_wm'
+            'dbms_xmlgen'
+            'dbms_xmlquery'
+            'dbms_xmlsave'
+            'debug_extproc'
+            'deleting'
+            'outln_pkg'
+            'plitblm'
+            'raise_application_error'
+            'sdo_cs'
+            'sdo_geom'
+            'sdo_lrs'
+            'sdo_migrate'
+            'sdo_tune'
+            'set_transaction_use'
+            'standard'
+            'utl_coll'
+            'utl_encode'
+            'utl_file'
+            'utl_http'
+            'utl_inaddr'
+            'utl_pg'
+            'utl_raw'
+            'utl_ref'
+            'utl_smtp'
+            'utl_tcp'
+            'utl_url')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Predefined Exceptions'
+      StyleName = 'Predefined Exceptions'
+      BlockType = btTagDetect
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'access_into_null'
+            'collection_is_null'
+            'cursor_already_open'
+            'dbms_lob.access_error'
+            'dbms_lob.invalid_directory'
+            'dbms_lob.noexist_directory'
+            'dbms_lob.nopriv_directory'
+            'dbms_lob.open_toomany'
+            'dbms_lob.operation_failed'
+            'dbms_lob.unopened_file'
+            'dbms_sql.inconsistent_type'
+            'dup_val_on_index'
+            'invalid_cursor'
+            'invalid_number'
+            'login_denied'
+            'no_data_found'
+            'not_logged_on'
+            'others'
+            'program_error'
+            'storage_error'
+            'subscript_beyond_count'
+            'subscript_outside_limit'
+            'timeout_on_resource'
+            'too_many_rows'
+            'utl_file.internal_error'
+            'utl_file.invalid_filehandle'
+            'utl_file.invalid_mode'
+            'utl_file.invalid_operation'
+            'utl_file.invalid_path'
+            'utl_file.read_error'
+            'utl_file.write_error'
+            'value_error'
+            'zero_divide')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ToadFold start'
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '/*startfold*/')
+          TokenTypes = 2
+          IgnoreCase = True
+        end>
+      BlockEnd = 'ToadFold end'
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = ' %s-1'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'ToadFold end'
+      BlockName = 'ToadFold start'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '/*endfold*/')
+          TokenTypes = 2
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Comment Start'
+      BlockName = 'Comment Start'
+      NotParent = True
+      ConditionList = <
+        item
+          TokenTypes = 2
+        end>
+      BlockEnd = 'Comment End'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = 'Comments...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Comment End'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TokenTypes = 1021
+        end
+        item
+          TokenTypes = 2
+        end>
+      BlockOffset = 1
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'constant start'
+      StrictParent = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'constant')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TokenTypes = 4
+        end>
+      BlockOffset = 1
+      BlockEnd = 'constant end'
+      NotCollapsed = True
+      NameFmt = '%s1 %s-1'
+      GroupFmt = 'Constants'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'constant end'
+      BlockName = 'constant start'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+          TokenTypes = 8
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Case Start'
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'case')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          CondType = tcNotEqual
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Case End'
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = '%s0...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Case End'
+      BlockName = 'Case Start'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Case Start'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'if start'
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'if')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          CondType = tcNotEqual
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'if end'
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = '%s0...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'if end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'if')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'DML Start'
+      BlockName = 'DML Start'
+      NotParent = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'cursor'
+            'delete'
+            'insert'
+            'select'
+            'update    ')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'DML End'
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = '%s0...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'DML End'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+          TokenTypes = 8
+        end>
+      BlockEnd = 'DML Start'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'DDL Start 1'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'cluster'
+            'context'
+            'dimension'
+            'directory'
+            'index'
+            'library'
+            'materialized'
+            'profile'
+            'public'
+            'role'
+            'rollback'
+            'sequence'
+            'table'
+            'tablespace'
+            'unique'
+            'user'
+            'view')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'create')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'DDL End 1'
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = '%s0 %s-1...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'DDL End 1'
+      BlockName = 'DDL Start 1'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '/'
+            ';')
+          TokenTypes = 8
+        end>
+      BlockEnd = 'DDL Start 1'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'DDL Start 2'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'cluster'
+            'context'
+            'dimension'
+            'directory'
+            'index'
+            'library'
+            'materialized'
+            'profile'
+            'public'
+            'role'
+            'rollback'
+            'sequence'
+            'table'
+            'tablespace'
+            'unique'
+            'user'
+            'view')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'replace')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'or')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'create')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'DDL End 2'
+      DisplayInTree = False
+      HighlightPos = cpAny
+      CollapseFmt = '%s0 %s-1 %s-2 %s-3...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'DDL End 2'
+      BlockName = 'DDL Start 2'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '/'
+            ';')
+          TokenTypes = 8
+        end>
+      BlockEnd = 'DDL Start 2'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Open start'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'for')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'open')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Open end'
+      NameFmt = '%s0 %s-1'
+      HighlightPos = cpAny
+      CollapseFmt = '...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Open end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+          TokenTypes = 8
+        end>
+      BlockEnd = 'Open start'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'For start'
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'loop')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'for'
+            'while')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'For end'
+      DisplayInTree = False
+      RefToCondEnd = True
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = '%s0 %s-1 %s-2...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'For end'
+      BlockName = 'For start'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'loop')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Loop start'
+      StyleName = 'Current block'
+      BlockName = 'For start'
+      NotParent = True
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'loop')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          CondType = tcNotEqual
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Loop end'
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = '%s0...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Loop end'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'loop')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Function Separator'
+      StyleName = 'Function separator'
+      BlockType = btLineBreak
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'function'
+            'procedure')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = '('
+      StyleName = '()'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '(')
+          TokenTypes = 8
+        end>
+      BlockEnd = ')'
+      DisplayInTree = False
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      CollapseFmt = '( ... )'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = ')'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ')')
+          TokenTypes = 8
+        end>
+      BlockEnd = '('
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'exception start'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'exception')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'exception end'
+      DisplayInTree = False
+      NameFmt = '%s0 %s-2'
+      HighlightPos = cpAny
+      DrawStaple = True
+      CollapseFmt = '%s0 ...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'exception end'
+      BlockName = 'exception start'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Alter Start'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'alter')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Alter End'
+      HighlightPos = cpAny
+      CollapseFmt = '%s0 %s-1...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Alter End'
+      BlockName = 'Alter Start'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+          TokenTypes = 8
+        end>
+      BlockEnd = 'Alter Start'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Begin Start'
+      StyleName = 'Current block'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'begin')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Begin End'
+      DynHighlight = dhBound
+      HighlightPos = cpRange
+      DynSelectMin = True
+      DrawStaple = True
+      CollapseFmt = '%s0...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Begin End'
+      BlockName = 'Begin Start'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'case'
+            'if'
+            'loop')
+          CondType = tcNotEqual
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'PLSQL Start 1'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'function'
+            'package'
+            'procedure'
+            'trigger'
+            'type')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'create')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'PLSQL End'
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = '%s0 %s-1 %s-2...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'PLSQL Start 2'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'function'
+            'java'
+            'package'
+            'procedure'
+            'trigger'
+            'type')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'replace')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'or')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'create')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'PLSQL End'
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = '%s0 %s-1 %s-2 %s-3 %s-4...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'PLSQL End'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '/')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            ';')
+          TokenTypes = 8
+          IgnoreCase = True
+        end
+        item
+          CondType = tcSkip
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Java Source Start 1'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'named')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'source')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'java')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'create')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Java Source End'
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = '%s0 %s-1 %s-2...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Java Source Start 2'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'named')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'source')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'java')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'replace')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'or')
+          TokenTypes = 4
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'create')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Java Source End'
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = '%s0 %s-1 %s-2 %s-3 %s-4...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Java Source End'
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            '/')
+          TokenTypes = 8
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            '}')
+          TokenTypes = 8
+          IgnoreCase = True
+        end>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Package Procedure Start'
+      ConditionList = <
+        item
+          TagList.Strings = (
+            'function'
+            'procedure')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      DisplayInTree = False
+      RefToCondEnd = True
+      HighlightPos = cpAny
+      CollapseFmt = '%s0 %s-1...'
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Package Procedure End 1'
+      BlockName = 'Package Procedure Start'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+          TokenTypes = 8
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Package Procedure Start'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Package Procedure End 2'
+      BlockName = 'Package Procedure Start'
+      StrictParent = True
+      BlockType = btRangeEnd
+      ConditionList = <
+        item
+          TagList.Strings = (
+            ';')
+          TokenTypes = 8
+          IgnoreCase = True
+        end
+        item
+          TagList.Strings = (
+            'if'
+            'loop')
+          CondType = tcNotEqual
+          TokenTypes = 4
+        end
+        item
+          TagList.Strings = (
+            'end')
+          TokenTypes = 4
+          IgnoreCase = True
+        end>
+      BlockEnd = 'Package Procedure Start'
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Toad_Datatypes'
+      StyleName = 'Toad_Datatypes'
+      BlockType = btTagDetect
+      ConditionList = <>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Toad_UserTables'
+      StyleName = 'Toad_UserTables'
+      BlockType = btTagDetect
+      ConditionList = <>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Toad_UserViews'
+      StyleName = 'Toad_UserViews'
+      BlockType = btTagDetect
+      ConditionList = <>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Toad_UserProcs'
+      StyleName = 'Toad_UserProcs'
+      BlockType = btTagDetect
+      ConditionList = <>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end
+    item
+      DisplayName = 'Toad_SYSViews'
+      StyleName = 'Toad_SYSViews'
+      BlockType = btTagDetect
+      ConditionList = <>
+      HighlightPos = cpAny
+      IgnoreAsParent = False
+    end>
+  CodeTemplates = <
+    item
+      Name = 'dual'
+      Description = 'select from dual;'
+      Code.Strings = (
+        'select |'
+        'from   dual;')
+    end
+    item
+      Name = 'key'
+      Description = 'i_migrt_key'
+      Code.Strings = (
+        'i_migrt_key')
+    end
+    item
+      Name = 'keys'
+      Description = 'i_migrt_key_seq_nr'
+      Code.Strings = (
+        'i_migrt_key_seq_nr')
+    end
+    item
+      Name = 's'
+      Description = 'select * from'
+      Code.Strings = (
+        'select *'
+        'from   |')
+    end
+    item
+      Name = 'sm'
+      Description = 'select * from migrt_'
+      Code.Strings = (
+        'select *'
+        'from   k.migrt_|')
+    end
+    item
+      Name = 'smk'
+      Description = 'select * from migrt_ where i_migrt_key like '#39#39
+      Code.Strings = (
+        'select *'
+        'from   k.migrt_|'
+        'where  i_migrt_key like '#39#39)
+    end
+    item
+      Name = 'log'
+      Description = 'select * from log'
+      Code.Strings = (
+        'select *'
+        'from   k.log'
+        'order  by timestamp desc;')
+    end
+    item
+      Name = 'logi'
+      Description = 'select * from log where id ='
+      Code.Strings = (
+        'select *'
+        'from   k.log'
+        'where  id in (|);')
+    end
+    item
+      Name = 'scc'
+      Description = 'code_obj_class'
+      Code.Strings = (
+        'select *'
+        'from   k.code_obj_class'
+        'where  id in (|);')
+    end
+    item
+      Name = 'scci'
+      Description = 'code_obj_classif'
+      Code.Strings = (
+        'select *'
+        'from   k.code_obj_classif'
+        'where  id in (|);')
+    end
+    item
+      Name = 'sccc'
+      Description = 'code_obj_class: classif'
+      Code.Strings = (
+        'select *'
+        'from   k.code_obj_class'
+        'where  obj_classif_id in (|);')
+    end
+    item
+      Name = 'td'
+      Description = 'to_date'
+      Code.Strings = (
+        'to_date('#39'|'#39','#39'yyyymmdd'#39')')
+    end
+    item
+      Name = 'tdl'
+      Description = 'to_date long'
+      Code.Strings = (
+        'to_date('#39#39','#39'dd.mm.yyyy hh24:mi:ss'#39')')
+    end
+    item
+      Name = 'logm'
+      Description = 'migration log'
+      Code.Strings = (
+        'select *'
+        'from   migr.migrt_log'
+        'order  by id desc;')
+    end
+    item
+      Name = 'sck'
+      Description = 'code_obj_key'
+      Code.Strings = (
+        'select *'
+        'from   k.code_obj_key'
+        'where  id in (|);')
+    end
+    item
+      Name = 'oti'
+      Description = 'obj_type_id'
+      Code.Strings = (
+        'obj_type_id')
+    end
+    item
+      Name = 'ms'
+      Description = 'i_migrt_source'
+      Code.Strings = (
+        'i_migrt_source')
+    end
+    item
+      Name = 'go'
+      Description = 'get_obj'
+      Code.Strings = (
+        'select k.get_obj(|)'
+        'from   dual;')
+    end
+    item
+      Name = 'so'
+      Description = 'session open'
+      Code.Strings = (
+        'exec k.session#.open_session;')
+    end
+    item
+      Name = 'res'
+      Description = 'reset package'
+      Code.Strings = (
+        'exec dbms_session.reset_package;')
+    end
+    item
+      Name = 'cnt'
+      Description = 'count(*)'
+      Code.Strings = (
+        'count(*) cnt')
+    end
+    item
+      Name = 'inn'
+      Description = 'is not null'
+      Code.Strings = (
+        'is not null')
+    end
+    item
+      Name = 'oko'
+      Description = 'keys from obj_id'
+      Code.Strings = (
+        'select *'
+        'from   k.obj_rel_key'
+        'where  obj_id in ( | )')
+    end
+    item
+      Name = 'okv'
+      Description = 'obj from key_val'
+      Code.Strings = (
+        'select *'
+        'from   k.obj_rel_key'
+        'where  upper(key_val) in ( '#39'|'#39' )')
+    end
+    item
+      Name = 'ghc'
+      Description = 'group by having count(*) > 1;'
+      Code.Strings = (
+        'group  by |'
+        'having count(*) > 1;')
+    end
+    item
+      Name = 'errg'
+      Description = 'migr error grouped by'
+      Code.Strings = (
+        'select substr(o_err, instr(o_err,'#39'/'#39')+1) err, count(*) cnt'
+        'from   k.migrt_|'
+        'where  o_err is not null'
+        'group  by substr(o_err, instr(o_err,'#39'/'#39')+1)'
+        'order  by 2 desc;')
+    end
+    item
+      Name = 'err'
+      Description = 'migr error'
+      Code.Strings = (
+        'select o_err, a.*'
+        'from   k.migrt_|     a'
+        'where  o_err is not null;')
+    end
+    item
+      Name = 'stat'
+      Description = 'migr statistics 1'
+      Code.Strings = (
+        'select i_migrt_key_seq_nr'
+        '      ,o_migrt_run_seq_nr'
+        '      ,count(*) cnt, count(o_doc_id) OK, count(o_err) err'
+        
+          '      ,min(o_timestamp),max(o_timestamp),round((max(o_timestamp)' +
+          '-min(o_timestamp))*24*60,2) elapsed'
+        
+          '      ,case when o_migrt_run_seq_nr is not null and (max(o_times' +
+          'tamp)-min(o_timestamp)) > 0 then'
+        
+          '         to_char(count(o_migrt_run_seq_nr)/((max(o_timestamp)-mi' +
+          'n(o_timestamp))*24),'#39'999G999'#39')'
+        '       end orders_per_h'
+        'from   k.migrt_|'
+        'group  by i_migrt_key_seq_nr'
+        '         ,o_migrt_run_seq_nr'
+        'order  by 1, 2;')
+    end
+    item
+      Name = 'pil'
+      Description = 'show serpils'
+      Code.Strings = (
+        'select serie_type_id, st.intl_id, count(*) cnt'
+        'from   serpil s'
+        '      ,meta_serie st'
+        'where  s.serie_type_id = st.id'
+        'group  by serie_type_id, st.intl_id'
+        'order  by 1;')
+    end
+    item
+      Name = 'avq'
+      Description = 'alter user avaloq'
+      Code.Strings = (
+        'alter user avaloq identified by avaloq')
+    end
+    item
+      Name = 'class'
+      Description = 'class information and more about an object'
+      Code.Strings = (
+        'select oc.obj_id, ct.intl_id obj_type, cst.intl_id obj_sub_type'
+        
+          '      ,coci.id classif_id, coci.intl_id classif_intl_id, coci.na' +
+          'me  classif_name --, nvl2(coci.method,'#39'+'#39',null) is_calc'
+        
+          '      ,coc.id class_id, coc.intl_id class_intl_id, coc.name  cla' +
+          'ss_name'
+        '      ,oni.name,oo.start_date open_date, oo.close_date'
+        'from   k.obj_class             oc'
+        
+          'join   k.code_obj_class        coc   on oc.obj_class_id    = coc' +
+          '.id'
+        
+          'join   k.code_obj_classif      coci  on oc.obj_classif_id  = coc' +
+          'i.id'
+        
+          'join   k.obj                   oo    on oc.obj_id          = oo.' +
+          'id'
+        
+          'join   k.code_obj_type         ct    on oo.obj_type_id     = ct.' +
+          'id'
+        
+          'left join k.code_obj_sub_type  cst   on oo.obj_sub_type_id = cst' +
+          '.id'
+        
+          'join   k.obj_name_intl    oni   on oc.obj_id         = oni.obj_i' +
+          'd'
+        'where  oc.obj_id        in ( | )'
+        'order by oc.obj_classif_id, oc.obj_class_id;')
+    end
+    item
+      Name = 'tab'
+      Description = 'all_tables'
+      Code.Strings = (
+        'select *'
+        'from   all_tables'
+        'where  1 =1 '
+        '  and  owner       = '#39'K'#39
+        '  and  table_name  like '#39'%|%'#39';')
+    end
+    item
+      Name = 'col'
+      Description = 'All Table Columns'
+      Code.Strings = (
+        'select *'
+        'from   all_tab_columns'
+        'where  1 =1 '
+        '  and  owner       = '#39'K'#39
+        '  and  table_name  like '#39'%%'#39
+        '  and  table_name  not like '#39'%/_V%'#39' escape '#39'/'#39
+        '  and  column_name like '#39'%|%'#39
+        'order by column_id')
+    end
+    item
+      Name = 'split'
+      Description = 'split regexp'
+      Code.Strings = (
+        'regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1)')
+    end
+    item
+      Name = 'g'
+      Description = 'get_obj'
+      Code.Strings = (
+        'k.get_obj(a.obj_id) name')
+    end
+    item
+      Name = 'orb'
+      Description = 'obj_remv (bulk)'
+      Code.Strings = (
+        'exec session#.open_session(i_bu_id => 7);'
+        'delete from list_obj_i;'
+        'insert into list_obj_i'
+        'select o_obj_id'
+        'from   migrt_asset'
+        'where  i_migrt_source = '#39'ADAM_MACC_CONTR'#39
+        '  and  o_obj_id is not null;'
+        '  '
+        'exec obj_remv#.obj#remv_by_list_obj_i;')
+    end
+    item
+      Name = 'or'
+      Description = 'obj_remv'
+      Code.Strings = (
+        'exec obj_remv#.obj#remv(|);')
+    end
+    item
+      Name = 'chgins'
+      Description = 'check install of changes'
+      Code.Strings = (
+        'select * '
+        'from   x.install_chg_v'
+        'where  1 = 1'
+        '--  and  id in ()'
+        '--order by id, timestp desc;'
+        'order by timestp desc;')
+    end
+    item
+      Name = 'jl'
+      Description = 'join log table'
+      Code.Strings = (
+        
+          'left join k.log       l  on regexp_replace(regexp_substr(mm.o_er' +
+          'r, '#39'[^/]+'#39',1,1), '#39'[^[:digit:]]'#39')  = l.id')
+    end
+    item
+      Name = 'dbe'
+      Description = 'declare...begin... end'
+      Code.Strings = (
+        'declare'
+        'begin'
+        'exception'
+        '  when others then'
+        'end;'
+        '/')
+    end
+    item
+      Name = 'as'
+      Description = 'alter session set current_schema = K'
+      Code.Strings = (
+        'alter session set current_schema = K')
+    end
+    item
+      Name = 'rn'
+      Description = 'rownumber'
+      Code.Strings = (
+        'row_number() over (partition by i_cont order by o_doc_id ) rnum')
+    end
+    item
+      Name = 'mig'
+      Description = 'Who is migrating?'
+      Code.Strings = (
+        
+          'select case when mq.sid is not null and mq.is_running is null th' +
+          'en '#39'Queued'#39
+        '            else '#39'Running'#39
+        '       end "Status"'
+        '     , v.SID'
+        '     , v.username'
+        '     , v.status'
+        '     , v.osuser'
+        '     , v.process'
+        '     , v.machine'
+        '     , v.terminal'
+        '     , v.program'
+        '     , v.sql_exec_start'
+        '     , o.name||'#39'.'#39'||pi.procedurename "Procedure"'
+        'from (select * from v$session '
+        
+          '       where     sid     = lib_co.get_item(1, SYS_CONTEXT('#39'AAA_M' +
+          'IGRT'#39', '#39'MIGRT_SESSION'#39'), '#39'.'#39')'
+        
+          '             and serial# = lib_co.get_item(2, SYS_CONTEXT('#39'AAA_M' +
+          'IGRT'#39', '#39'MIGRT_SESSION'#39'), '#39'.'#39')'
+        '          or sid in (select SID from MIGRT_QUEUE)'
+        '     ) v '
+        '   , sys."_CURRENT_EDITION_OBJ" o'
+        '   , sys.procedureinfo$ pi'
+        '   , MIGRT_QUEUE mq'
+        'where v.plsql_entry_object_id = o.obj#'
+        ' and o.obj# = pi.obj#'
+        ' and v.plsql_entry_subprogram_id = pi.procedure#'
+        ' and v.SID = mq.SID(+)'
+        'order by sql_exec_start')
+    end
+    item
+      Name = 'statv'
+      Description = 'statistics view'
+      Code.Strings = (
+        'select *'
+        'from   k.migrv_|')
+    end
+    item
+      Name = 'usr'
+      Description = 'Add user to BU'
+      Code.Strings = (
+        'declare'
+        '  l_ret_val     pls_integer;'
+        '  c_bu_id       pls_integer  := 6;'
+        '  c_user_name   varchar2(20) := '#39'RTSCHAN'#39';'
+        '  c_role_name   varchar2(20) := '#39'R_WMP_T_MIGR'#39';'
+        'begin'
+        '  session#.open_session(i_bu_id => c_bu_id);'
+        
+          '  l_ret_val := rbsc$sec_user_maintenance.user#add_bu(i_user_name' +
+          ' => c_user_name, i_bu_id => c_bu_id);    '
+        
+          '  l_ret_val := rbsc$sec_user_maintenance.user#add_role(i_user_na' +
+          'me => c_user_name, i_role_name => c_role_name, i_bu_id => c_bu_i' +
+          'd);   '
+        '  commit;'
+        'end;'
+        '/')
+    end
+    item
+      Name = 'la'
+      Description = 'list_agg'
+      Code.Strings = (
+        
+          ' listagg(col, '#39','#39' on overflow truncate) within group (order by c' +
+          'ol) ')
+    end
+    item
+      Name = 'sob'
+      Description = 'session open bu specific'
+      Code.Strings = (
+        'exec k.session#.open_session(i_bu_id => |);')
+    end
+    item
+      Name = 'ilog'
+      Description = 'install log'
+      Code.Strings = (
+        'select *'
+        'from   x.install_log'
+        'where  1 = 1'
+        '  and  time_stamp > sysdate -1'
+        '--  and  lower(text) like '#39'%|%'#39
+        'order by time_stamp desc')
+    end
+    item
+      Name = 'base'
+      Description = 'base par value'
+      Code.Strings = (
+        
+          'select base_par_intf#.base_par#val('#39'avq.fire'#39','#39'balstru_id'#39',7)  -' +
+          '-     i_intl_id, i_item, i_bu_id, i_sbu_id, i_bu_grp_id'
+        'from   dual;')
+    end
+    item
+      Name = 'smv'
+      Description = 'select from migr view'
+      Code.Strings = (
+        'select *'
+        'from   k.migrv_|')
+    end
+    item
+      Name = 'sp'
+      Description = 'serpil'
+      Code.Strings = (
+        'select *'
+        'from   k.serpil'
+        'where  serie_type_id = 21'
+        '  and  del is null'
+        '  and  period_start = base#.today;')
+    end
+    item
+      Name = 'co'
+      Description = 'count objs'
+      Code.Strings = (
+        
+          'select oo.obj_type_id, cot.intl_id, oo.bu_id, oni.name_intl, cou' +
+          'nt(*) cnt'
+        'from   obj           oo'
+        'join   code_obj_type cot on oo.obj_type_id  = cot.id'
+        'join   obj_name_intl oni on oo.bu_id        = oni.obj_id'
+        'group  by oo.obj_type_id, cot.intl_id, oo.bu_id, oni.name_intl'
+        'order  by oo.obj_type_id, oo.bu_id;')
+    end
+    item
+      Name = 'gc'
+      Description = 'get columns'
+      Code.Strings = (
+        
+          'select '#39'open'#39', null, regexp_substr(table_name,'#39'[^_]+'#39',1,2), lowe' +
+          'r(table_name), lower(column_name)'
+        'from   all_tab_columns'
+        'where  1 =1 '
+        '  and  owner        = '#39'K'#39
+        '  and  table_name   like '#39'MIGRT_PERSON%'#39
+        '--  and  table_name   in ( '#39'%%'#39' )'
+        '  and  table_name   not in ( '#39'MIGRT_PERSON'#39' )'
+        '  and  table_name   not like '#39'%/_LD%'#39' escape '#39'/'#39
+        '  and  column_name  not like '#39'O/_%'#39' escape '#39'/'#39
+        '  and  column_name  not like '#39'X/_%'#39' escape '#39'/'#39
+        '  and  column_name  like '#39'%%'#39
+        'order  by table_name, column_id;')
+    end
+    item
+      Name = 'rb'
+      Description = 'Mandanten-Info'
+      Code.Strings = (
+        
+          'select to_number(regexp_replace(subdir, '#39'[^0-9]'#39')) mandant, k.ge' +
+          't_obj(bu.obj_id) bu_name, bu.obj_id bu_id, upper(substr(subdir,4' +
+          ',2)) typ, ba.rm$bu_migr_date_sd, ba.rm$bu_migr_date_pd, bu.bu_st' +
+          'atus_id, bs.intl_id bu_status, coc.intl_id slot, b.today base_to' +
+          'day'
+        'from   k.obj_bp_bu       bu'
+        'join   k.obj_bp_add      ba  on bu.obj_id = ba.obj_id'
+        'join   k.code_bu_status  bs  on bu.bu_status_id = bs.id'
+        
+          'join   k.obj_class       oc  on bu.obj_id = oc.obj_id and oc.obj' +
+          '_classif_id = 7798'
+        'join   k.code_obj_class  coc on oc.obj_class_id = coc.id'
+        'join   k.base            b   on bu.obj_id = b.bu_id'
+        'where  1 = 1'
+        '--  and  to_number(regexp_replace(subdir, '#39'[^0-9]'#39')) in ()'
+        '--  and  k.get_obj(bu.obj_id) like '#39'%%'#39
+        '  and coc.intl_id like '#39's1'#39
+        'order  by to_number(regexp_replace(subdir, '#39'[^0-9]'#39'));')
+    end
+    item
+      Name = 'sm2'
+      Description = 'select from migrt_t mit Zusatzinfo'
+      Code.Strings = (
+        
+          'select regexp_replace(regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1),'#39'[^' +
+          '0-9]'#39') mandant, count(*) cnt, count(o_doc_id) cnt_ok, count(o_er' +
+          'r) cnt_err, null "  -  ", round(100*count(o_doc_id)/ count(*),2)' +
+          ' "% OK"'
+        'from   k.migrt_| a'
+        'where  1 = 1'
+        '  and  i_migrt_key like '#39'RCH____.%'#39
+        '  and  i_migrt_source like '#39'%%'#39
+        'group  by regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1);')
+    end
+    item
+      Name = 'pw'
+      Description = 'alter passwords'
+      Code.Strings = (
+        'alter user k      identified by k'
+        ''
+        'alter user k_read identified by k_read'
+        ''
+        'alter user k_read account unlock'
+        ''
+        'alter user avaloq identified by avaloq'
+        ''
+        'alter user k      identified by summer_69'
+        ''
+        'alter user avaloq identified by summer_69')
+    end
+    item
+      Name = 'bgp'
+      Description = 'view valid bgps'
+      Code.Strings = (
+        'select bgp_id, name, count(*) cnt, count(job) cnt_job'
+        'from   k.obj_bgp_v'
+        'where  valid = '#39'+'#39
+        'group  by bgp_id, name'
+        'order  by 1;')
+    end
+    item
+      Name = 'chgins2'
+      Description = 'check install of change list'
+      Code.Strings = (
+        'select *'
+        
+          'from  ( with chg_list as ( select '#39'2200901,2195732,2205415,22032' +
+          '68,2205955,2206293,2229481,2231290,2229666,2233520,2233389,22329' +
+          '72'#39' chg_id_list from dual )'
+        
+          '        select regexp_substr(cl.chg_id_list,'#39'[^,]+'#39', 1, level)  ' +
+          'chg_id'
+        '        from   chg_list  cl'
+        
+          '        connect by regexp_substr(cl.chg_id_list, '#39'[^,]+'#39', 1, lev' +
+          'el) is not null ) cc'
+        'left join x.install_chg  ic on cc.chg_id = ic.chg_id')
+    end
+    item
+      Name = 'mfw'
+      Description = 'mfis workflows'
+      Code.Strings = (
+        'select   rowid, r.*'
+        'from     migr.mf_wf_v r'
+        '--where  wft_name in ('#39'MIGRATE_ADDON'#39')'
+        'where    tenant = 73'
+        'order by done '
+        ''
+        ''
+        'begin'
+        
+          '--  MF_API.SET_STATUS_BROKEN(i_wf_id_list=> '#39'187,188,189,190,191' +
+          ',192,193,194,195,196,197,198'#39');'
+        
+          '--  MF_API.SET_STATUS_closed(i_wf_id_list=> '#39'1251,1280,1264,1255' +
+          ',1263,1286,1275,1289,1268'#39');'
+        '--  commit;'
+        'end;'
+        '/'
+        ''
+        'SELECT rowid, wf.*     FROM migr.mf_wf wf'
+        'where wf_id  in (175,178,181,186)')
+    end
+    item
+      Name = 'esp'
+      Description = 'Execute via SQL*Plus header'
+      Code.Strings = (
+        'set feedback off'
+        'set serveroutput on'
+        
+          'exec dbms_output.put_line('#39'--+ ---------------------------------' +
+          '------------'#39');'
+        
+          'exec dbms_output.put_line('#39'--  left join auf doc_tab_obj_rel_key' +
+          ' entfernt'#39');'
+        
+          'exec dbms_output.put_line('#39'--+ ---------------------------------' +
+          '------------'#39');'
+        ''
+        'var i_tenant number'
+        'var i_today varchar2(15)'
+        'exec :i_tenant := 102'
+        'exec :i_today := '#39'2017-09-04'#39
+        'set feedback on'
+        'print :i_tenant'
+        'print :i_today'
+        ''
+        'set time on'
+        'set timing on')
+    end
+    item
+      Name = 'splits'
+      Description = 'split regexp suffix'
+      Code.Strings = (
+        'regexp_substr(i_migrt_key,'#39'[^\.]*$'#39')')
+    end
+    item
+      Name = 'set'
+      Description = 'settings for sql*plus'
+      Code.Strings = (
+        'set linesize 2000'
+        'set echo on'
+        'set serveroutput on'
+        'set time on'
+        'set timing on')
+    end
+    item
+      Name = 'sc'
+      Description = 'select * from k.code_'
+      Code.Strings = (
+        'select *'
+        'from   k.code_|')
+    end
+    item
+      Name = 'sd'
+      Description = 'select * from desn table'
+      Code.Strings = (
+        'select *'
+        'from   rbsc$pf$bp_decsn')
+    end
+    item
+      Name = 'mad'
+      Description = 'def.max date'
+      Code.Strings = (
+        'to_date('#39'47121231'#39', '#39'YYYYMMDD'#39')')
+    end
+    item
+      Name = 'mid'
+      Description = 'def.min_date'
+      Code.Strings = (
+        'to_date('#39'2'#39', '#39'J'#39')')
+    end
+    item
+      Name = 'nud'
+      Description = 'def.null_date'
+      Code.Strings = (
+        'to_date('#39'1'#39', '#39'J'#39')')
+    end
+    item
+      Name = 'suffix'
+      Description = 'extract suffix'
+      Code.Strings = (
+        'substr(regexp_substr(i_migrt_key, '#39'\.[^\.]*$'#39'),2)')
+    end
+    item
+      Name = 'mfks'
+      Description = 'mf_migrt_key_seq_nr'
+      Code.Strings = (
+        'select *'
+        'from   migr.mf_migrt_key_seq_reg'
+        'where  1 = 1'
+        '  and  tenant       = 1319 '
+        '  and  type_name    = '#39'POS_SEC'#39
+        '  and  logical_name = '#39'POS_SEC.WS'#39)
+    end
+    item
+      Name = 'ks'
+      Description = 'kill sessions'
+      Code.Strings = (
+        'set appinfo on'
+        'set serveroutput on'
+        'set time on'
+        'set timing on'
+        'declare'
+        '  l_cnt  pls_integer := 0;'
+        'begin'
+        '  for c in ('
+        '              select distinct vs.sid, vs.serial#'
+        '              from   v$session vs'
+        '              where  program = '#39'JDBC Thin Client'#39
+        '                and  module  = '#39'JDBC Thin Client'#39
+        '                and  status  = '#39'INACTIVE'#39
+        '--                and  logon_time < sysdate - 1/24'
+        '                and  vs.sql_id is null'
+        '           ) loop'
+        '    begin'
+        '      kill_session(c.sid, c.serial#);'
+        '      l_cnt := l_cnt + 1;'
+        '    exception'
+        '      when others then'
+        
+          '        dbms_output.put_line('#39'Error when killing session '#39' ||| c' +
+          '.sid || '#39','#39' || c.serial# || '#39' - errm: '#39' || sqlerrm );'
+        '    end;'
+        '  end loop;'
+        
+          '  dbms_output.put_line('#39'Killed '#39' || l_cnt || '#39' inactive JDBC Thi' +
+          'n Client sessions'#39');'
+        'end;'
+        '/')
+    end
+    item
+      Name = 'api'
+      Code.Strings = (
+        'set appinfo on'
+        'set serveroutput on'
+        'set time on'
+        'set timing on'
+        'declare'
+        '  l_nr_cpu       pls_integer  := 24;'
+        '  l_chunk_size   pls_integer  := 100;'
+        '  l_max_rownum   pls_integer;'
+        '  l_descn        varchar2(100);'
+        'begin'
+        '  l_max_rownum := 10 * l_nr_cpu * l_chunk_size;'
+        
+          '  l_descn      := '#39'Rows: '#39' || l_max_rownum || '#39', chunk size: '#39' |' +
+          '| l_chunk_size;'
+        '  k.session#.open_session(i_bu_id =>194 );'
+        '  k.migrt_cont#.gen_cont('
+        '     i_migr_key                     => '#39'RCH1196.G.CONT.%'#39','
+        '     i_migr_key_seq_nr              => 600,'
+        
+          '     i_open_wfc_action_id           => k.rm$migr_fact_api#.migr#' +
+          'get_wfa_id(i_meta_typ => '#39'cont'#39', i_is_open_new => '#39'+'#39'),'
+        
+          '     i_store_wfc_action_id          => k.rm$migr_fact_api#.migr#' +
+          'get_wfa_id(i_meta_typ => '#39'cont'#39', i_is_store_new => '#39'+'#39'),'
+        '     i_do_queue                     => true,'
+        
+          '     i_bu_key                       => k.obj_key#.obj#key(i_obj_' +
+          'id => 194, i_obj_key_id => k.def_obj_key.bp_sym),'
+        '     i_chunk_size                   => l_chunk_size,'
+        '     i_parallel                     => true,'
+        '     i_max_cpu                      => 24,'
+        '     i_max_rownum                   => l_max_rownum,'
+        '     i_migr_stats_descn             => l_descn'
+        '  );'
+        '  dbms_output.put_line(l_descn);'
+        'end;'
+        '/')
+    end
+    item
+      Name = 'mq'
+      Description = 'migrt queue mit infos'
+      Code.Strings = (
+        
+          'select mq.*, k.rm$migr_fact_api#.get_queue_info(mq.migr_key, mq.' +
+          'migr_key_seq_nr) info'
+        'from   k.migrt_queue mq'
+        'order  by ins_time;')
+    end
+    item
+      Name = 'dev'
+      Description = 'Liste der DEV RB'#39's'
+      Code.Strings = (
+        
+          '5,73,210,454,496,698,775,833,1196,1325,1384,1454,1475,1488,1490,' +
+          '1491')
+    end
+    item
+      Name = 'wa'
+      Description = 'wfc_action'
+      Code.Strings = (
+        'select *'
+        'from   k.wfc_action wa'
+        'join   k.meta_typ   mt on wa.meta_typ_id = mt.id'
+        'where  1 = 1'
+        '  and  mt.intl_id like '#39'xfer'#39
+        '  and  wa.intl_id like '#39'%cert%'#39
+        '--  and  wa.old_wfc_status_id in (0)'
+        '--  and  wa.new_wfc_status_id in (90)')
+    end
+    item
+      Name = 'dts'
+      Description = 'check DT.SEC'
+      Code.Strings = (
+        '-- CHECK DT.SEC (should be empty)'
+        
+          'select instru_id, get_obj(instru_id) asset_name, cont_cust_id, g' +
+          'et_obj(cont_cust_id) cust_name, cont_id, get_obj(cont_id) owner_' +
+          'name, sum_qty'
+        
+          'from ( select oo.bu_id, oo.instru_id, oo.cont_cust_id, oo.obj_ow' +
+          'ner_id cont_id, sum(ep.qty_1) sum_qty'
+        '       from k.obj_rel_key   oc'
+        '       join k.obj           oo  on oc.obj_id = oo.obj_owner_id'
+        '       join k.evt_pkt3      ep  on oo.id = ep.pos_id'
+        '       where  oc.key_val          = '#39'DT.SEC'#39
+        '--         and  oc.bu_id            = 10'
+        '         and  oo.obj_type_id      = 9 -- def_obj_type.pos'
+        
+          '         and  oo.obj_sub_type_id != 1 -- def_obj_sub_type.pos_ca' +
+          'cc'
+        
+          '       group by oo.bu_id, oo.instru_id, oo.cont_cust_id, oo.obj_' +
+          'owner_id'
+        '        )'
+        'where  sum_qty != 0'
+        'order  by 2;')
+    end
+    item
+      Name = 't1'
+      Description = 'Liste der T1 Mandanten'
+      Code.Strings = (
+        
+          '73,97,105,150,283,700,702,736,833,882,930,1045,1073,1137,1196,12' +
+          '14,1269,1281,1325,1351,1357,1475')
+    end
+    item
+      Name = 'bp'
+      Description = 'base par'
+      Code.Strings = (
+        'select *'
+        'from   k.base_par      bp'
+        'join   k.base_par_item bpi on bp.id = bpi.base_par_id'
+        'where  1 = 1'
+        '  and  bp.intl_id  like '#39'%%'#39
+        '  and  bpi.intl_id like '#39'%%'#39)
+    end
+    item
+      Name = 'okvl'
+      Description = 'obj_rel_key like key_val'
+      Code.Strings = (
+        'select *'
+        'from   k.obj_rel_key'
+        'where  upper(key_val) like '#39'%|%'#39' ')
+    end
+    item
+      Name = 'gs'
+      Description = 'search in src'
+      Code.Strings = (
+        'select /* + parallel(8) */ '
+        '       s.name         src_name'
+        '      ,ds.* '
+        'from        dba_source     ds'
+        'left join k.src_db_obj_rel sr on ds.name   = sr.db_obj_name '
+        'left join k.src            s  on sr.src_id = s.id'
+        'where  lower(ds.text) like '#39'%|%'#39
+        '--  and  ds.type like '#39'%%'#39
+        '--  and  ds.type in ('#39'PACKAGE BODY'#39')'
+        'order by 1,2,3;')
+    end
+    item
+      Name = 'dtsec'
+      Description = 'Check DT.SEC'
+      Code.Strings = (
+        '-- CHECK DT.SEC (should be empty)'
+        
+          'select instru_id, get_obj(instru_id) asset_name, cont_cust_id, g' +
+          'et_obj(cont_cust_id) cust_name, cont_id, get_obj(cont_id) owner_' +
+          'name, sum_qty'
+        
+          'from ( select oo.bu_id, oo.instru_id, oo.cont_cust_id, oo.obj_ow' +
+          'ner_id cont_id, sum(ep.qty_1) sum_qty'
+        '       from k.obj_rel_key   oc'
+        '       join k.obj           oo  on oc.obj_id = oo.obj_owner_id'
+        '       join k.evt_pkt3      ep  on oo.id = ep.pos_id'
+        '       where  oc.key_val          = '#39'DT.SEC'#39
+        '--         and  oc.bu_id            = 10'
+        '         and  oo.obj_type_id      = 9 -- def_obj_type.pos'
+        
+          '         and  oo.obj_sub_type_id != 1 -- def_obj_sub_type.pos_ca' +
+          'cc'
+        
+          '       group by oo.bu_id, oo.instru_id, oo.cont_cust_id, oo.obj_' +
+          'owner_id'
+        '        )'
+        'where  sum_qty != 0'
+        'order  by 2;')
+    end
+    item
+      Name = 'remigr'
+      Description = 'Remigrate'
+      Code.Strings = (
+        'select count(*) cnt'
+        'from   migrt_pos_sec'
+        'where  o_err like '#39'%Follow up%'#39
+        ''
+        'begin'
+        '  -- mark records for remigration'
+        '  update  migrt_pos_sec  mps'
+        '  set     i_migrt_source = i_migrt_source || '#39'_REMIGR'#39
+        '  where   lower(o_err) like '#39'%follow up%'#39';'
+        '  --'
+        '  commit;'
+        '  -- loop through records to be remigrated'
+        '  for c in ('
+        
+          '              select ork.obj_id bu_id, i_migrt_key_seq_nr, i_mig' +
+          'rt_source, substr(regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1),4) mand' +
+          'ant, count(*) cnt'
+        '              from   migrt_pos_sec  mps'
+        
+          '              join   obj_rel_key    ork on regexp_substr(i_migrt' +
+          '_key,'#39'[^.]+'#39',1,1) = '#39'RCH'#39'||ork.key_val and ork.obj_key_id = 7501'
+        '              where  i_migrt_source like '#39'%_REMIGR'#39
+        
+          '              group  by ork.obj_id, i_migrt_key_seq_nr, i_migrt_' +
+          'source, regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1) '
+        '              order  by 1,2  '
+        '           ) loop'
+        '    k.session#.open_session(i_bu_id => c.bu_id);'
+        '    k.migrt_pos_sec#.gen_pos_sec('
+        
+          '                                  i_migr_key                    ' +
+          ' => '#39'RCH'#39'|| c.mandant||'#39'.G.POS_SEC%'#39','
+        
+          '                                  i_migr_key_seq_nr             ' +
+          ' => c.i_migrt_key_seq_nr,'
+        
+          '                                  i_open_wfc_action_id          ' +
+          ' => k.rm$migr_fact_api#.migr#get_wfa_id(i_meta_typ => '#39'xfer'#39', i_' +
+          'is_open_new => '#39'+'#39'),'
+        
+          '                                  i_store_wfc_action_id         ' +
+          ' => k.rm$migr_fact_api#.migr#get_wfa_id(i_meta_typ => '#39'xfer'#39', i_' +
+          'is_store_new => '#39'+'#39'),'
+        
+          '                                  i_do_queue                    ' +
+          ' => true,'
+        
+          '                                  i_bu_key                      ' +
+          ' => k.obj_key#.obj#key(i_obj_id => c.bu_id, i_obj_key_id => k.de' +
+          'f_obj_key.bp_sym),'
+        
+          '                                  i_chunk_size                  ' +
+          ' => 1,'
+        
+          '                                  i_parallel                    ' +
+          ' => false'
+        '                                );'
+        
+          '    dbms_output.put_line('#39'Follow Up Errors - retried '#39' || c.cnt ' +
+          '|| '#39' orders for BU '#39' || c.bu_id || '#39' ('#39'||c.mandant||'#39'/'#39' || c.i_m' +
+          'igrt_key_seq_nr|| '#39')'#39'  );'
+        '  end loop;'
+        '  -- remove mark'
+        '  update  migrt_pos_sec  mps'
+        
+          '  set     i_migrt_source = regexp_replace(i_migrt_source,'#39'_REMIG' +
+          'R$'#39')'
+        '  where   i_migrt_source like '#39'%_REMIGR'#39';'
+        '  --'
+        '  commit;'
+        '  --'
+        'end;'
+        '/')
+    end
+    item
+      Name = 'bgpl'
+      Description = 'BGP Leichen'
+      Code.Strings = (
+        
+          '--+ ------------------------------------------------------------' +
+          '----------------'
+        '--  BGP LEICHEN'
+        
+          '--+ ------------------------------------------------------------' +
+          '----------------'
+        '-- Check vor Migrationsstart'
+        
+          'select owner||'#39'.'#39'||job_name from sys.dba_scheduler_jobs where jo' +
+          'b_name like '#39'%BGP%'#39' and job_name not like '#39'%TEMPL%'#39' -- order by ' +
+          '1'
+        'minus '
+        'select job from obj_bgp_v   order by 1'
+        ''
+        '-- Skript zum Aufr'#228'umen von BGP Leichen'
+        '/*  '
+        
+          '  Falls es BGP Leichen hat! Kommen vom Heruntersetzen der anzahl' +
+          ' Instn. Core r'#228'umt nicht ab. Vor dem Heruntersetzen der Max Inst' +
+          'n muss zwingend ein REMV gemacht werden.'
+        '*/'
+        'declare'
+        
+          '  --------------------------------------------------------------' +
+          '--------------'
+        '  procedure drop_scheduler_job('
+        '    i_scheduler_job_name                          varchar2'
+        '  )'
+        '  is'
+        '    job_not_running_excp                          exception;'
+        '    pragma exception_init(job_not_running_excp, -27366);'
+        '  begin'
+        '    begin'
+        '      dbms_scheduler.disable('
+        '        name  => i_scheduler_job_name'
+        '       ,force => true'
+        '       ,commit_semantics => '#39'ABSORB_ERRORS'#39
+        '      );'
+        '    exception'
+        '      when others then'
+        
+          '        debug('#39'obj_bgp#.drop_scheduler_job - disable'#39', '#39'exp: '#39'||' +
+          'dbms_utility.format_error_stack); -- ignore all exceptions'
+        '    end;'
+        '    begin'
+        '      dbms_scheduler.stop_job('
+        '        job_name => i_scheduler_job_name'
+        '       ,force    => false'
+        '      );'
+        '    exception'
+        '      when job_not_running_excp then'
+        '        null;'
+        '      when others then'
+        '        begin'
+        '          dbms_scheduler.stop_job('
+        '            job_name => i_scheduler_job_name'
+        '           ,force    => true'
+        '          );'
+        '        exception'
+        '          when others then'
+        
+          '            debug('#39'obj_bgp#.drop_scheduler_job - stop force'#39', '#39'e' +
+          'xp: '#39'||dbms_utility.format_error_stack); -- ignore all exception' +
+          's'
+        '      end;'
+        '    end;'
+        '    dbms_scheduler.drop_job('
+        '      job_name => i_scheduler_job_name'
+        '     ,defer    => false'
+        '    );'
+        '  exception'
+        '    when others then'
+        
+          '      raise_fa_err('#39'drop_scheduler_job('#39'||i_scheduler_job_name||' +
+          #39')'#39');'
+        '  end drop_scheduler_job;'
+        'begin '
+        '  for c in ('
+        
+          '    select owner||'#39'.'#39'||job_name job_name from sys.dba_scheduler_' +
+          'jobs where job_name like '#39'%BGP%'#39' and job_name not like '#39'%TEMPL%'#39 +
+          ' -- order by 1'
+        '    minus '
+        '    select job from obj_bgp_v   '
+        '    order by 1'
+        '  ) loop'
+        '    drop_scheduler_job(c.job_name);'
+        '  end loop;'
+        'end;'
+        '/')
+    end
+    item
+      Name = 'master'
+      Description = 'Check Masters'
+      Code.Strings = (
+        
+          '--+ ------------------------------------------------------------' +
+          '----------------'
+        '--  CHECK MASTERS'
+        
+          '--+ ------------------------------------------------------------' +
+          '----------------'
+        '-- Schauen, ob alle masters gestoppt sind'
+        'declare '
+        '  i               pls_integer;'
+        '  l_master_state  varchar2(24);'
+        '  l_err           varchar2(2000);'
+        'begin'
+        '  for i in 2..9 loop'
+        '    l_master_state := coalesce('
+        
+          '      avq_gctx#.gctx#sys_context(install_state#.c_prl_ctx_name, ' +
+          'install_state#.c_prl_ctx#master_state_prefix||i)'
+        '     ,install_state#.c_master_state#stopped'
+        '    );'
+        
+          '    if l_master_state <> install_state#.c_master_state#stopped t' +
+          'hen'
+        '      l_err := l_err ||'#39':'#39'||i;'
+        '    end if;'
+        '    install#.log#write(i||'#39':'#39'||l_master_state);'
+        '  end loop;'
+        '  --'
+        '  if l_err is not null then '
+        
+          '    raise_application_error(-20000,'#39'not all masters stopped '#39'||l' +
+          '_err);'
+        '  end if;    '
+        'end;'
+        '/'
+        ''
+        ''
+        '-- muss leer sein:'
+        
+          'select s.run_count,s.* from sys.dba_scheduler_jobs s where  stat' +
+          'e  = '#39'RUNNING'#39' and job_name like '#39'AVQ$ISM%'#39' order by owner , s.j' +
+          'ob_name '
+        ''
+        '-- masters stoppen'
+        'begin'
+        '  session#.open_session;'
+        '  for i in 2..9 loop    '
+        '    install#.master#reset_master(i);'
+        '    install#.master#stop_slave(i);'
+        '  end loop;'
+        '  prl_exec#.gctx#reset;'
+        'end;'
+        '/ ')
+    end
+    item
+      Name = 'src'
+      Description = 'check src'
+      Code.Strings = (
+        
+          'select ss.intl_id status, sa.intl_id action, st.intl_id src_type' +
+          ', st.name src_type_name, s.*'
+        'from   k.src              s'
+        'join   k.code_src_status  ss on s.src_status_id = ss.id'
+        'join   k.code_src_action  sa on s.src_action_id = sa.id'
+        'join   k.code_src_type    st on s.src_type_id   = st.id'
+        'where  st.intl_id like '#39'%val%'#39
+        '  and  s.name like '#39'%STEX%'#39)
+    end
+    item
+      Name = 'srca'
+      Description = 'src action'
+      Code.Strings = (
+        
+          'exec k.src#.src#do_action(i_src_id => , i_src_action_id => def_s' +
+          'rc_action.do_activ); -- do_deactiv, do_cmpl')
+    end
+    item
+      Name = 'srch'
+      Description = 'src hist'
+      Code.Strings = (
+        
+          'select ss.intl_id status, sa.intl_id action, st.intl_id, st.name' +
+          ', s.name src_name, sh.rowid, sh.*, sha.intl_id install_action'
+        'from   k.src                s'
+        'join   k.src_hist           sh  on s.id            = sh.src_id'
+        'join   k.code_src_status    ss  on s.src_status_id = ss.id'
+        'join   k.code_src_action    sa  on s.src_action_id = sa.id'
+        'join   k.code_src_type      st  on s.src_type_id   = st.id'
+        'left join k.code_src_action sha on sh.install_action_id = sha.id'
+        'where  st.intl_id like '#39'%src_script_pkg%'#39
+        '  and  s.name like '#39'RM$%STEX%'#39
+        '  and  sh.text like '#39'%do_migr%'#39
+        'order  by sh.seq_nr')
+    end
+    item
+      Name = 'atrx'
+      Description = 'check atrx delta'
+      Code.Strings = (
+        'select a.*, b.*, a.to_atrx_seq_nr - b.max_in_atrx delta'
+        
+          'from   (select distinct atrx_subscr_id, cas.intl_id, to_atrx_seq' +
+          '_nr'
+        '        from   atrx_baseline_subscr abs'
+        
+          '        join   code_atrx_subscr     cas on abs.atrx_subscr_id = ' +
+          'cas.id'
+        '       ) a'
+        '     , (select max(atrx_seq_nr) max_in_atrx'
+        '        from   atrx ) b;')
+    end
+    item
+      Name = 'ep'
+      Description = 'event packets associated with doc'
+      Code.Strings = (
+        'select posn.name_intl  pos_name'
+        '     , oon.name_intl   owner_name'
+        '     , bk.intl_id'
+        '     , ep.qty_1'
+        '     , ep.*, ep.*'
+        'from   k.evt3           e'
+        'join   k.evt_pkt3       ep   on e.id = ep.evt_id'
+        'join   k.code_book_kind bk   on ep.book_kind_id = bk.id'
+        'join   k.obj_name_intl  posn on ep.pos_id = posn.obj_id'
+        'join   k.obj            oo   on ep.pos_id = oo.id'
+        'join   k.obj_name_intl  oon  on oo.obj_owner_id = oon.obj_id'
+        'where  e.doc_id in (|)'
+        'order  by oo.obj_owner_id')
+    end
+    item
+      Name = 'rb2'
+      Code.Strings = (
+        'select a.man_mandantnr, count(*) cnt'
+        'from   own_d2kz.d2k_rw_konto@dialba a'
+        'where  a.rec_mutationflag <> '#39'D'#39
+        '  and  a.idatum           is null'
+        '  and  a.man_mandantnr in ('
+        '                            select to_number(ork.key_val)'
+        '                            from   k.obj_bp_bu   bu'
+        
+          '                            join   k.obj_rel_key ork on bu.obj_i' +
+          'd = ork.obj_id and ork.obj_key_id = 7501'
+        '                         )'
+        'group  by a.man_mandantnr'
+        'order  by 2 desc;')
+    end
+    item
+      Name = 'oni'
+      Description = 'obj_name_intl'
+      Code.Strings = (
+        'select *'
+        'from   k.obj_name_intl'
+        'where  obj_id = |')
+    end
+    item
+      Name = 'onin'
+      Description = 'obj_name_intl where name like'
+      Code.Strings = (
+        'select *'
+        'from   k.obj_name_intl'
+        'where  lower(name) like '#39'%|%'#39)
+    end
+    item
+      Name = 't1bu'
+      Description = 't1 bu_ids'
+      Code.Strings = (
+        
+          '25,27,30,33,48,111,113,121,140,149,160,175,179,182,194,199,211,2' +
+          '14,235,237,239,271')
+    end
+    item
+      Name = 'statt'
+      Description = 'stats for turmalin'
+      Code.Strings = (
+        
+          'select '#39'10 - addr'#39' type, regexp_replace(regexp_substr(i_migrt_ke' +
+          'y,'#39'[^.]+'#39',1,1),'#39'[^0-9]'#39') mandant, count(*) cnt, count(o_doc_id) ' +
+          'cnt_ok, count(o_err) cnt_err, null "  -  ", round(100*count(o_do' +
+          'c_id)/ count(*),2) "% OK"'
+        'from   k.migrt_addr a'
+        'where  1 = 1'
+        '  and  i_migrt_key like '#39'RCH____.%'#39
+        'group  by regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1)'
+        'union'
+        
+          'select '#39'20 - person'#39' type, regexp_replace(regexp_substr(i_migrt_' +
+          'key,'#39'[^.]+'#39',1,1),'#39'[^0-9]'#39') mandant, count(*) cnt, count(o_doc_id' +
+          ') cnt_ok, count(o_err) cnt_err, null "  -  ", round(100*count(o_' +
+          'doc_id)/ count(*),2) "% OK"'
+        'from   k.migrt_person a'
+        'where  1 = 1'
+        '  and  i_migrt_key like '#39'RCH____.%'#39
+        'group  by regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1)'
+        'union'
+        
+          'select '#39'30 - bp'#39' type, regexp_replace(regexp_substr(i_migrt_key,' +
+          #39'[^.]+'#39',1,1),'#39'[^0-9]'#39') mandant, count(*) cnt, count(o_doc_id) cn' +
+          't_ok, count(o_err) cnt_err, null "  -  ", round(100*count(o_doc_' +
+          'id)/ count(*),2) "% OK"'
+        'from   k.migrt_bp a'
+        'where  1 = 1'
+        '  and  i_migrt_key like '#39'RCH____.%'#39
+        'group  by regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1)'
+        'union'
+        
+          'select '#39'40 - cont'#39' type, regexp_replace(regexp_substr(i_migrt_ke' +
+          'y,'#39'[^.]+'#39',1,1),'#39'[^0-9]'#39') mandant, count(*) cnt, count(o_doc_id) ' +
+          'cnt_ok, count(o_err) cnt_err, null "  -  ", round(100*count(o_do' +
+          'c_id)/ count(*),2) "% OK"'
+        'from   k.migrt_cont a'
+        'where  1 = 1'
+        '  and  i_migrt_key like '#39'RCH____.%'#39
+        'group  by regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1)'
+        'union'
+        
+          'select '#39'50 - macc'#39' type, regexp_replace(regexp_substr(i_migrt_ke' +
+          'y,'#39'[^.]+'#39',1,1),'#39'[^0-9]'#39') mandant, count(*) cnt, count(o_doc_id) ' +
+          'cnt_ok, count(o_err) cnt_err, null "  -  ", round(100*count(o_do' +
+          'c_id)/ count(*),2) "% OK"'
+        'from   k.migrt_macc a'
+        'where  1 = 1'
+        '  and  i_migrt_key like '#39'RCH____.%'#39
+        'group  by regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1)'
+        'union'
+        
+          'select '#39'60 - pos_sec'#39' type, regexp_replace(regexp_substr(i_migrt' +
+          '_key,'#39'[^.]+'#39',1,1),'#39'[^0-9]'#39') mandant, count(*) cnt, count(o_doc_i' +
+          'd) cnt_ok, count(o_err) cnt_err, null "  -  ", round(100*count(o' +
+          '_doc_id)/ count(*),2) "% OK"'
+        'from   k.migrt_pos_sec a'
+        'where  1 = 1'
+        '  and  i_migrt_key like '#39'RCH____.%'#39
+        'group  by regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1)'
+        'union'
+        
+          'select '#39'70 - pos_mon'#39' type, regexp_replace(regexp_substr(i_migrt' +
+          '_key,'#39'[^.]+'#39',1,1),'#39'[^0-9]'#39') mandant, count(*) cnt, count(o_doc_i' +
+          'd) cnt_ok, count(o_err) cnt_err, null "  -  ", round(100*count(o' +
+          '_doc_id)/ count(*),2) "% OK"'
+        'from   k.migrt_pos_mon a'
+        'where  1 = 1'
+        '  and  i_migrt_key like '#39'RCH____.%'#39
+        'group  by regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1)'
+        'union'
+        
+          'select '#39'80 - mmkt'#39' type, regexp_replace(regexp_substr(i_migrt_ke' +
+          'y,'#39'[^.]+'#39',1,1),'#39'[^0-9]'#39') mandant, count(*) cnt, count(o_doc_id) ' +
+          'cnt_ok, count(o_err) cnt_err, null "  -  ", round(100*count(o_do' +
+          'c_id)/ count(*),2) "% OK"'
+        'from   k.migrt_mmkt a'
+        'where  1 = 1'
+        '  and  i_migrt_key like '#39'RCH____.%'#39
+        'group  by regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1)'
+        'union'
+        
+          'select '#39'85 - fxtr'#39' type, regexp_replace(regexp_substr(i_migrt_ke' +
+          'y,'#39'[^.]+'#39',1,1),'#39'[^0-9]'#39') mandant, count(*) cnt, count(o_doc_id) ' +
+          'cnt_ok, count(o_err) cnt_err, null "  -  ", round(100*count(o_do' +
+          'c_id)/ count(*),2) "% OK"'
+        'from   k.migrt_fxtr a'
+        'where  1 = 1'
+        '  and  i_migrt_key like '#39'RCH____.%'#39
+        'group  by regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1)'
+        'union'
+        
+          'select '#39'90 - irs'#39' type, regexp_replace(regexp_substr(i_migrt_key' +
+          ','#39'[^.]+'#39',1,1),'#39'[^0-9]'#39') mandant, count(*) cnt, count(o_doc_id) c' +
+          'nt_ok, count(o_err) cnt_err, null "  -  ", round(100*count(o_doc' +
+          '_id)/ count(*),2) "% OK"'
+        'from   k.migrt_irs a'
+        'where  1 = 1'
+        '  and  i_migrt_key like '#39'RCH____.%'#39
+        'group  by regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1)'
+        'union'
+        
+          'select '#39'95 - fra'#39' type, regexp_replace(regexp_substr(i_migrt_key' +
+          ','#39'[^.]+'#39',1,1),'#39'[^0-9]'#39') mandant, count(*) cnt, count(o_doc_id) c' +
+          'nt_ok, count(o_err) cnt_err, null "  -  ", round(100*count(o_doc' +
+          '_id)/ count(*),2) "% OK"'
+        'from   k.migrt_fra a'
+        'where  1 = 1'
+        '  and  i_migrt_key like '#39'RCH____.%'#39
+        'group  by regexp_substr(i_migrt_key,'#39'[^.]+'#39',1,1);')
+    end
+    item
+      Name = 'logging'
+      Code.Strings = (
+        'select s.process_ela_sec, s.*'
+        'from   mfl_rr_proc_section_v@logging s'
+        'where  s.factory_name = '#39'EAVAN532'#39
+        '  and  s.run_start_time > sysdate - 10'
+        '  and  s.program_name like '#39'%LOAD%'#39
+        '  and  s.table_name like '#39'STA_AVAR_MMKT'#39
+        '  and  s.sect_annotation like '#39'insert'#39
+        'order  by s.process_start_time')
+    end
+    item
+      Name = 'ssta'
+      Description = 'select from staging table'
+      Code.Strings = (
+        'select *'
+        'from   migr.sta_avar_|')
+    end
+    item
+      Name = 'mig_mmkt'
+      Description = 'Migration API for mmkt'
+      Code.Strings = (
+        'set echo on'
+        'set serveroutput on'
+        'set time on'
+        'set timing on'
+        'declare'
+        '  l_bu_id       pls_integer := 10;'
+        '  l_key_seq_nr  pls_integer := 200;'
+        '  l_tenant      varchar2(4) := '#39'1500'#39';'
+        '  l_parallel    boolean     := false;'
+        'begin'
+        '  k.session#.open_session(i_bu_id => l_bu_id);'
+        '  k.migrt_mmkt#.gen_mmkt('
+        
+          '     i_migr_key                     => '#39'RCH'#39' || to_char(l_tenant' +
+          ', '#39'FM0000'#39') || '#39'.G.MMKT.%'#39','
+        '     i_migr_key_seq_nr              => l_key_seq_nr,'
+        
+          '     i_aux_cont_id                  => migr.mf_lookup_helper.get' +
+          '_obj_id(i_intl_id => '#39'cont_sym'#39', i_key_val => '#39'DT.MACC'#39', i_bu_id' +
+          ' => l_bu_id),'
+        '     i_do_queue                     => true,'
+        
+          '     i_bu_key                       => k.obj_key#.obj#key(i_obj_' +
+          'id => l_bu_id, i_obj_key_id => k.def_obj_key.bp_sym),'
+        '--     i_chunk_size                   => 10,'
+        '     i_parallel                     => l_parallel'
+        '  );'
+        'end;'
+        '/')
+    end
+    item
+      Name = 'sta'
+      Description = 'avar-staging'
+      Code.Strings = (
+        'select *'
+        'from   migr.sta_avar_|    sta')
+    end
+    item
+      Name = 'mig_pos_sec'
+      Description = 'Migration API for pos_sec'
+      Code.Strings = (
+        'set echo on'
+        'set serveroutput on'
+        'set time on'
+        'set timing on'
+        'declare'
+        '  l_bu_id       pls_integer := 10;'
+        '  l_key_seq_nr  pls_integer := 200;'
+        '  l_tenant      varchar2(4) := '#39'1500'#39';'
+        '  l_parallel    boolean     := false;'
+        'begin'
+        '  k.session#.open_session(i_bu_id => l_bu_id);'
+        '  k.migrt_pos_sec#.gen_pos_sec('
+        
+          '     i_migr_key                     => '#39'RCH'#39' | to_char(l_tenant,' +
+          ' '#39'FM0000'#39') || '#39'.G.POS_SEC.%'#39','
+        '     i_migr_key_seq_nr              => l_key_seq_nr,'
+        
+          '     i_open_wfc_action_id           => k.am$migr_fact_api#.migr#' +
+          'get_wfa_id(i_meta_typ => '#39'xfer'#39', i_is_open_new => '#39'+'#39'),'
+        
+          '     i_store_wfc_action_id          => k.am$migr_fact_api#.migr#' +
+          'get_wfa_id(i_meta_typ => '#39'xfer'#39', i_is_store_new => '#39'+'#39'),'
+        '     i_do_queue                     => true,'
+        
+          '     i_bu_key                       => k.obj_key#.obj#key(i_obj_' +
+          'id => l_bu_id, i_obj_key_id => k.def_obj_key.bp_sym),'
+        '--     i_chunk_size                   => 10,'
+        '     i_parallel                     => l_parallel'
+        '  );'
+        'end;'
+        '/')
+    end
+    item
+      Name = 'mig_irs'
+      Description = 'Migration API for irs'
+      Code.Strings = (
+        'set echo on'
+        'set serveroutput on'
+        'set time on'
+        'set timing on'
+        'declare'
+        '  l_bu_id       pls_integer := 10;'
+        '  l_key_seq_nr  pls_integer := 200;'
+        '  l_tenant      varchar2(4) := '#39'1500'#39';'
+        '  l_parallel    boolean     := false;'
+        'begin'
+        '  k.session#.open_session(i_bu_id => l_bu_id);'
+        '  k.migrt_irs#.gen_irs('
+        
+          '     i_migr_key                     => '#39'RCH'#39' | to_char(l_tenant,' +
+          ' '#39'FM0000'#39') || '#39'.G.IRS.%'#39','
+        '     i_migr_key_seq_nr              => l_key_seq_nr,'
+        '     i_do_queue                     => true,'
+        
+          '     i_bu_key                       => k.obj_key#.obj#key(i_obj_' +
+          'id => l_bu_id, i_obj_key_id => k.def_obj_key.bp_sym),'
+        '--     i_chunk_size                   => 10,'
+        '     i_parallel                     => l_parallel'
+        '  );'
+        'end;'
+        '/')
+    end
+    item
+      Name = 'pos'
+      Description = 'pos einer person'
+      Code.Strings = (
+        'select k.get_obj(pos.id), pos.*'
+        'from   k.obj_person           op'
+        
+          'join   k.obj_bp_person_rel    obp   on op.obj_id  = obp.rel_pers' +
+          'on_id'
+        'join   k.obj_cont             oc    on obp.obj_id = oc.bp_id'
+        
+          'join   k.obj                  pos   on oc.obj_id = pos.obj_owner' +
+          '_id'
+        'where  1 = 1'
+        '  and  obp.bp_person_rel_type_id in ( 1,2,10 )'
+        '  and  obp.valid_from       <= to_date('#39'20180131'#39','#39'yyyymmdd'#39')'
+        '  and  obp.valid_to         >= to_date('#39'20180131'#39','#39'yyyymmdd'#39')'
+        '  and  op.obj_id = 2758563')
+    end
+    item
+      Name = 'gather'
+      Description = 'exec dbms_stats.gather_table_stats'
+      Code.Strings = (
+        'exec dbms_stats.gather_table_stats('#39'K'#39','#39'MIGRT_MMKT'#39');')
+    end
+    item
+      Name = 'sz'
+      Description = 'Slot-Zuteilung'
+      Code.Strings = (
+        
+          'select listagg(key_val, '#39','#39') within group (order by key_val) man' +
+          'danten_list, listagg(to_number(key_val), '#39','#39') within group (orde' +
+          'r by key_val) mandanten_list_num,  listagg(bu.obj_id, '#39','#39') withi' +
+          'n group (order by bu.obj_id) bu_list'
+        '       -- key_val, k.get_obj(bu.obj_id), bu.obj_id '
+        'from   k.obj_bp_bu       bu'
+        
+          'join   k.obj_class       oc  on bu.obj_id = oc.obj_id and oc.obj' +
+          '_classif_id = 7798'
+        'join   k.code_obj_class  coc on oc.obj_class_id = coc.id'
+        
+          'join   k.obj_rel_key     ork on bu.obj_id = ork.obj_id and ork.o' +
+          'bj_key_id = 7501'
+        'where  coc.intl_id = '#39's1'#39
+        'order  by key_val')
+    end
+    item
+      Name = 'gm'
+      Description = 'get_mandant'
+      Code.Strings = (
+        'regexp_replace(i_migrt_key,'#39'([A-Z]{3})([0-9]{4}).*'#39','#39'\2'#39')')
+    end
+    item
+      Name = 'gmn'
+      Description = 'get mandant number'
+      Code.Strings = (
+        
+          'k.is_number(regexp_replace(i_migrt_key,'#39'([A-Z]{3})([0-9]{4}).*'#39',' +
+          #39'\2'#39'))')
+    end
+    item
+      Name = 'mand'
+      Description = 'Mandant aus i_migrt_key extrahieren'
+      Code.Strings = (
+        'k.is_number(substr(i_migrt_key,4,4))')
+    end
+    item
+      Name = 'bpr'
+      Description = 'BP Person Rel'
+      Code.Strings = (
+        'select bp.name       bp_name'
+        '     , pers.name     person_name'
+        '     , op.start_date person_start_date'
+        '     , op.close_date person_close_date'
+        '     , cbprt.name    bp_person_rel_type'
+        '     , car.name      auth_role'
+        '     , rel.*, bpra.*'
+        'from   k.obj_bp_person_rel       rel'
+        
+          'join   k.obj_person              op    on rel.rel_person_id = op' +
+          '.obj_id'
+        
+          'join   k.obj_name_intl           bp    on rel.obj_id        = bp' +
+          '.obj_id'
+        
+          'join   k.obj_name_intl           pers  on rel.rel_person_id = pe' +
+          'rs.obj_id'
+        
+          'join   k.code_bp_person_rel_type cbprt on rel.bp_person_rel_type' +
+          '_id = cbprt.id '
+        
+          'left join k.obj_bp_pers_rel_auth bpra  on rel.id = bpra.bp_perso' +
+          'n_rel_id '
+        
+          'left join k.code_auth_role       car   on bpra.auth_role_id = ca' +
+          'r.id'
+        'where  1 = 1'
+        '  and  rel.bp_person_rel_type_id in ( 1,2 ) /* ao, ao_lim */'
+        '  and  rel.rel_person_id = |')
+    end
+    item
+      Name = 'sn'
+      Description = 'rbsc$pf$ table'
+      Code.Strings = (
+        'select *'
+        'from   rbsc$pf$|')
+    end
+    item
+      Name = 'sl'
+      Description = 'log table'
+      Code.Strings = (
+        'select *'
+        'from   rbsc$pf$log'
+        'order  by id desc')
+    end
+    item
+      Name = 'gui'
+      Description = 'Open user for GUI'
+      Code.Strings = (
+        '-- Access All BUs Script'
+        'begin'
+        '  session#.open_session;'
+        '  k.user_admin_intf#.adm_user(i_adm_stmt => '#39
+        '    oracle_user:  RTSCHAN'
+        '    name:         Reto Tschan'
+        '    email:        Reto.Tschan@rbs-services.com'
+        '    user_type:    indvl     '
+        '    single_login: +'
+        '      bu:          [all_dedic_bu]'
+        '      role:        R_AM_BANK'
+        '  '#39
+        '  , i_incr_adm => false'
+        '  );'
+        'end;'
+        '/')
+    end
+    item
+      Name = 'sdb'
+      Description = 'decision table where bp_id'
+      Code.Strings = (
+        'select *'
+        'from   rbsc$pf$bp_decsn'
+        'where  1 = 1 '
+        '  and  bp_id in ( | )')
+    end
+    item
+      Name = 'debug'
+      Code.Strings = (
+        
+          'l_debug boolean := char_to_bool(rbsc$pf$util#.gctx#val('#39'debug'#39'))' +
+          '; /* exec rbsc$pf$util#.gctx#set('#39'debug'#39','#39'+'#39'); can be +,- or nul' +
+          'l */'
+        ''
+        '    if l_debug then'
+        
+          '      rbsc$pf$util#.log#write(i_text => '#39'Query to be executed wi' +
+          'th execute immediate'#39', i_descn => substr(b_stmt,1,4000), i_tag =' +
+          '> '#39'DEBUG'#39');'
+        '    end if;')
+    end
+    item
+      Name = 'srb'
+      Description = 'select bp recon'
+      Code.Strings = (
+        'select *'
+        'from   rbsc$pf$recon_bp')
+    end
+    item
+      Name = 'dq'
+      Description = 'get descn query'
+      Code.Strings = (
+        'select k.rbsc$pf$bp_decsn#.get_decsn_query(|)'
+        'from   dual;')
+    end
+    item
+      Name = 'nvl2'
+      Code.Strings = (
+        'nvl2(|, '#39'+'#39', null)')
+    end
+    item
+      Name = 'cntd'
+      Description = 'count(*) desc'
+      Code.Strings = (
+        'count(*) desc')
+    end
+    item
+      Name = 'ocd'
+      Description = 'order by count(*) desc'
+      Code.Strings = (
+        'order by count(*) desc')
+    end
+    item
+      Name = 'ukbu'
+      Description = 'bu_id in (4,6,7,10,12)'
+      Code.Strings = (
+        'bu_id in (4,6,7,10,12)')
+    end
+    item
+      Name = 'valid'
+      Description = 'dtm_person_model_valid_pmf'
+      Code.Strings = (
+        'dtm_person_model_valid_pmf')
+    end
+    item
+      Name = 'r'
+      Description = 'rbsc$pf$'
+      Code.Strings = (
+        'rbsc$pf$|')
+    end
+    item
+      Name = 'gsearch'
+      Code.Strings = (
+        'select *'
+        'from x.install_src_rpt_intf_v'
+        'where lower(src_text) like '#39'%|%'#39
+        'order by pkg_src_id desc'
+        ''
+        ''
+        'select *'
+        'from   user_source'
+        'where  name like '#39'RBSC$%'#39
+        '  and  lower(text) like '#39'%|%'#39
+        'order by type, name, line;')
+    end
+    item
+      Name = 'cw'
+      Description = 'enable compiler warinings'
+      Code.Strings = (
+        'alter session set plsql_warnings = '#39'ENABLE:ALL'#39)
+    end
+    item
+      Name = 'grant'
+      Code.Strings = (
+        'GRANT SELECT ON RBSC$PF$AUTH_DECSN_00 TO RBSC$I_DREAM_READ')
+    end
+    item
+      Name = 'cj'
+      Description = 'cross join to duplicate'
+      Code.Strings = (
+        'cross join ( select level l from dual connect by level <= 10 )')
+    end
+    item
+      Name = 'lcc'
+      Description = 'lib_co.count_items'
+      Code.Strings = (
+        'lib_co.count_item(|,'#39','#39')')
+    end
+    item
+      Name = 'lcg'
+      Description = 'lib_co.get_item'
+      Code.Strings = (
+        'lib_co.get_item(|,fld,'#39','#39')')
+    end
+    item
+      Name = 'mdf_col'
+      Description = 'get modify columns for a migration table'
+      Code.Strings = (
+        
+          'select  listagg(column_name, '#39','#39' on overflow truncate) within gr' +
+          'oup (order by column_id),  '#39#39#39#39' || listagg('#39'i'#39', '#39#39#39','#39#39#39' on overf' +
+          'low truncate) within group (order by column_id) || '#39#39#39#39
+        'from   all_tab_columns'
+        'where  owner       = '#39'K'#39
+        '  and  table_name  like '#39'MIGRT_BP'#39
+        '  and  column_name like '#39'I_MDF%'#39
+        '  and  data_type   not like '#39'T/_%'#39' escape '#39'/'#39
+        'order by column_id')
+    end>
+  SubAnalyzers = <
+    item
+      DisplayName = 'Java'
+      StartExpression = 
+        '(?i)(\bJAVA\b)(\s*?)(\bSOURCE\b)(\s*?)(\bNAMED\b)(s*?)(.+?)(\b(A' +
+        'S|IS)\b)'
+      EndExpression = '(?-m)(\})(\s*?)(;?\s*?)((\/\s*?(\r|\n|$))|(\s*?$))'
+    end>
+  SampleText.Strings = (
+    '/* This calculates a nextdate for a defined interval.'
+    
+      '   The function works similar to the functionality in DBMS_JOB *' +
+      '/'
+    ''
+    'FUNCTION calc_next_date ('
+    '   i_interval   IN   VARCHAR2,'
+    '   i_default    IN   DATE DEFAULT SYSDATE'
+    ')'
+    '   RETURN DATE'
+    'IS'
+    '   v_date        DATE;'
+    '   v_statement   VARCHAR2 (5000);'
+    'BEGIN'
+    '   IF i_interval IS NULL'
+    '   THEN'
+    
+      '      RETURN (i_default);  -- if no interval defined return the ' +
+      'default value'
+    '   ELSE'
+    '      v_statement := '#39'SELECT '#39' || i_interval || '#39' FROM DUAL'#39';'
+    ''
+    '      EXECUTE IMMEDIATE v_statement'
+    '                   INTO v_date;'
+    ''
+    '      RETURN (v_date);'
+    '   END IF;'
+    'EXCEPTION'
+    '   WHEN OTHERS'
+    '   THEN'
+    '      -- if any error occurs, return the default value'
+    '      RETURN (i_default);'
+    'END calc_next_date;')
+  TokenTypeNames.Strings = (
+    'Unknown'
+    'Comment'
+    'Identifier'
+    'Symbol'
+    'String'
+    'Integer const'
+    'Float const')
+  MarkedBlockStyle = 'Marked block'
+  CurrentLineStyle = 'Current Line'
+  DefaultStyleName = 'Default'
+  Extentions = 'SQL FNC JAVA JVS PKB PKS PRC TPB TPS TRG VW PLS'
+  LexerName = 'PL/SQL'
+  RestartFromLineStart = True
+  LineComment = '--'
+  Charset = DEFAULT_CHARSET
+  Left = 308
+  Top = 412
+end
