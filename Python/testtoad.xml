@@ -1,0 +1,32 @@
+<TEMPLATES>
+   <TEMPLATE name="anon" advanced="false">
+      <DESCRIPTION>Anonymous block</DESCRIPTION>
+      <CODE><![CDATA[DECLARE
+                  dummy NUMBER;
+                  BEGIN
+   SELECT count(*) INTO dummy FROM dual;
+   |;
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+      NULL;
+   WHEN OTHERS THEN
+      NULL;
+END;]]>  
+   </CODE>
+   </TEMPLATE>
+      <TEMPLATE name="bbbb" advanced="true">
+      <DESCRIPTION>Anonymous block</DESCRIPTION>
+      <CODE><![CDATA[DECLARE
+                  dummy NUMBER;
+                  BEGIN
+   SELECT count(*) INTO dummy FROM dual;
+   |;
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+      NULL;
+   WHEN OTHERS THEN
+      NULL;
+END;]]>  
+      </CODE>
+   </TEMPLATE>
+</TEMPLATES>

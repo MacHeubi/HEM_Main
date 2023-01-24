@@ -1,0 +1,25 @@
+"Description";"Advanced";"Key";"Value"
+"Anonymous block";"false";"anon";"DECLARE
+                  dummy NUMBER;
+                  BEGIN
+   SELECT count(*) INTO dummy FROM dual;
+   |;
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+      NULL;
+   WHEN OTHERS THEN
+      NULL;
+END;  
+   "
+"Anonymous block";"true";"bbbb";"DECLARE
+                  dummy NUMBER;
+                  BEGIN
+   SELECT count(*) INTO dummy FROM dual;
+   |;
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+      NULL;
+   WHEN OTHERS THEN
+      NULL;
+END;  
+      "
