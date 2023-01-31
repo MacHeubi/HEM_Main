@@ -116,3 +116,74 @@ select ci.coll_id        as COLL_ID
 from   CS_COLL_ITEM ci
 join   CS_SNIPPETS s on s.id = ci.SNIP_ID
 join   CS_GROUP g on g.id = s.group_id
+
+
+-- Procedure to copy a snippet to a collection
+CREATE OR REPLACE PROCEDURE CS_P_MOVE_COLL_ITEM_TO_COLL
+(
+	   p_coll_id IN cs_collections.ID%TYPE,
+	   p_coll_item_id IN cs_coll_item.id%TYPE,
+       p_user IN cs_collections.owner%TYPE)
+is
+    v_snip_root_id      cs_snippets.ID%TYPE;
+    v_key_root          cs_coll_item.KEY%TYPE;
+    v_snip_row          cs_snippets%ROWTYPE;
+    v_owner             cs_collections.owner%TYPE;
+    v_new_snip_id       cs_snippets.ID%TYPE;
+    v_new_coll_item_id  cs_coll_item.ID%TYPE;
+Begin
+
+    -- Select root snippet id
+    select snip_id, key
+    into   v_snip_root_id, v_key_root
+    from   cs_coll_item c
+    where  c.id = p_coll_item_id;
+
+    -- Select root snippet data
+    select *
+    into   v_snip_row
+    from   cs_snippets s
+    where  s.id = v_snip_root_id;
+ 
+    -- select collection owner
+    select Upper(owner)
+    into   v_owner
+    from   cs_collections c
+    where  c.id = p_coll_id;
+
+    -- Check owner of collection
+    If v_owner = p_user then
+      
+        -- Create new snippet based on root
+        v_new_snip_id := "K"."ISEQ$$_179127".nextval;
+
+        INSERT INTO cs_snippets
+          (ID, name, Description, code, group_id, advanced, private, insert_date, OWNER)
+          Values
+          (v_new_snip_id,
+           v_snip_row.name,
+           v_snip_row.description,
+           v_snip_row.code,
+           v_snip_row.group_id,
+           v_snip_row.advanced,
+           1,
+           sysdate,
+           p_user);
+
+        -- create new collection_item entry
+        v_new_coll_item_id := "K"."ISEQ$$_179121".nextval;
+
+        INSERT INTO cs_coll_item
+          (ID, COLL_ID, SNIP_ID, KEY)
+          Values
+          (v_new_coll_item_id,
+           p_coll_id,
+           v_new_snip_id,
+           v_key_root);
+
+        -- commit
+        commit;
+
+    end if;
+
+end;
