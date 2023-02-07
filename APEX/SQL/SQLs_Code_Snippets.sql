@@ -292,3 +292,7 @@ from   cs_log
 
 -- lösch das log
 delete from cs_log
+
+-- Try to read the XML data in the BLOB-Column
+        SELECT XMLTYPE (UTL_RAW.cast_to_varchar2 (c.content)).EXTRACT('rows/row/value/text()') XMLValue, XMLTYPE (UTL_RAW.cast_to_varchar2 (c.content)).EXTRACT('rows/row/key/text()') XMLKey, c.*
+  FROM cs_file_contents c
