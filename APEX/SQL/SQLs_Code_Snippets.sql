@@ -294,5 +294,149 @@ from   cs_log
 delete from cs_log
 
 -- Try to read the XML data in the BLOB-Column
-        SELECT XMLTYPE (UTL_RAW.cast_to_varchar2 (c.content)).EXTRACT('rows/row/value/text()') XMLValue, XMLTYPE (UTL_RAW.cast_to_varchar2 (c.content)).EXTRACT('rows/row/key/text()') XMLKey, c.*
-  FROM cs_file_contents c
+-- 1. cast into xmltype COLUMN in the with statement
+-- 2. read the elements into columns
+with xmlcontent
+as (
+select 
+XMLType( content, 1) as XMLt
+from   cs_file_contents
+where  id = 31)
+SELECT xt.*
+FROM   xmlcontent x,
+       XMLTABLE('/rows/row'
+         PASSING x.xmlt
+         COLUMNS 
+           key       VARCHAR2(50) PATH 'key',
+           value     VARCHAR2(1000) PATH 'value'
+         ) xt;
+
+--- Insert into File_content
+INSERT INTO cs_file_contents
+  (subject, file_name, tool_mime_type, owner,ins_date, coll_id, content, content_len, mime_type)
+VAULES 'Testfile',
+        'filename',
+        'SQLDEV-XML',
+        :P3_USER,
+        SYSDATE,
+        NULL,
+        :P3_DATEI,
+        NULL,
+        'application/xml';
+
+--- Procedure um die collection aus dem file_content zu erzeugen
+create or replace PROCEDURE CS_P_CREATE_COLLECTION_FROM_BLOB
+(
+	   p_content_id IN cs_file_content.ID%TYPE)
+is
+    v_snip_id           cs_snippets.ID%TYPE;
+    v_coll_id           cs_collections.ID%TYPE;
+    
+    -- Cursor declaration for XML format used in TAOD
+    CURSOR c_elements_xml_toad (in_content_id cs_file_content.ID%TYPE)
+    IS
+            with xmlcontent
+            as (
+            select 
+            XMLType(content, 1) as XMLT
+            from   cs_file_contents
+            where  id = in_content_id)
+            SELECT xt.*
+            FROM   xmlcontent x,
+                   XMLTABLE('/rows/row'
+                     PASSING x.xmlt
+                     COLUMNS 
+                       key       VARCHAR2(50) PATH 'key',
+                       value     VARCHAR2(2000) PATH 'value'
+                     ) xt;
+
+    v_key        VARCHAR2(50);
+    v_value      VARCHAR2(2000);
+        
+    -- Cursor declaration for XML format used in SQL-Developer
+    CURSOR c_elements_xml_sqdev (in_content_id cs_collections.ID%TYPE)
+    IS
+            with xmlcontent
+            as (
+            select 
+            XMLType(content, 1) as XMLT
+            from   cs_file_contents
+            where  id = in_content_id)
+            SELECT xt.*
+            FROM   xmlcontent x,
+                   XMLTABLE('/TEMPLATES/TEMPLATE'
+                     PASSING x.xmlt
+                     COLUMNS
+                       DESCN      VARCHAR2(200) PATH 'DESCRIPTION'
+                      ,NAMEN      VARCHAR2(50)  PATH '@name'
+                      ,CODES      VARCHAR2(2000) PATH 'CODE'
+                      ,ADV        VARCHAR2(30) PATH '@advanced'
+                     ) xt;
+
+    v_descn      VARCHAR2(200);
+    v_namen      VARCHAR2(50);
+    v_codes      VARCHAR2(2000);
+    v_adv        VARCHAR2(30);
+Begin
+    ---- REFACTOR from here!!!!
+    -- Check TOOL_MIME_TYPE
+    If p_tool_mime_type = 'TOAD-XML' then
+
+        v_content := utl_raw.cast_to_raw('<TEMPLATES>' || chr(13));
+        -- Select the content into CLOB
+        OPEN c_elements_xml_toad(p_coll_id);
+        LOOP
+            FETCH c_elements_xml_toad INTO r_line_xml_toad;
+            -- Append to content
+            v_temp_blob := utl_raw.cast_to_raw(r_line_xml_toad.line);
+            dbms_lob.append(v_content, v_temp_blob);
+            EXIT WHEN c_elements_xml_toad%notfound;
+        END LOOP;
+        dbms_lob.append(v_content, utl_raw.cast_to_raw('</TEMPLATES>'));
+        CLOSE c_elements_xml_toad;
+        -- Create new CONTENT / Insert into Content Table
+        INSERT INTO cs_file_contents
+          (subject, file_name, tool_mime_type, OWNER, ins_date, coll_id, content, content_len, mime_type)
+          Values
+          (p_subject,
+           p_filename || '.xml',
+           p_tool_mime_type,
+           p_user,
+           sysdate,
+           p_coll_id,
+           v_content,
+           dbms_lob.getlength(v_content),
+           'application/xml');
+           
+    elsif p_tool_mime_type = 'SQLDEV-XML' then
+
+        v_content := utl_raw.cast_to_raw('<?xml version = ''1.0'' encoding = ''UTF-8''?>' || chr(13) || '<rows>' || chr(13));
+        -- Select the content into CLOB
+        OPEN c_elements_xml_sqdev(p_coll_id);
+        LOOP
+            FETCH c_elements_xml_sqdev INTO r_line_xml_sqdev;
+            -- Append to content
+            v_temp_blob := utl_raw.cast_to_raw(r_line_xml_sqdev.line);
+            dbms_lob.append(v_content, v_temp_blob);
+            EXIT WHEN c_elements_xml_sqdev%notfound;
+        END LOOP;
+        dbms_lob.append(v_content, utl_raw.cast_to_raw('</rows>'));
+        CLOSE c_elements_xml_sqdev;
+        -- Create new CONTENT / Insert into Content Table
+        INSERT INTO cs_file_contents
+          (subject, file_name, tool_mime_type, OWNER, ins_date, coll_id, content, content_len, mime_type)
+          Values
+          (p_subject,
+           p_filename || '_CodeTemplate.xml',
+           p_tool_mime_type,
+           p_user,
+           sysdate,
+           p_coll_id,
+           v_content,
+           dbms_lob.getlength(v_content),
+           'application/xml');
+    
+    end if;
+    -- commit
+    commit;
+end;
